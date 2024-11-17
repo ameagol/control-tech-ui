@@ -2,6 +2,8 @@
 FROM node:18 as build
 WORKDIR /app
 
+RUN npm config set registry https://registry.npmjs.org/
+
 # Install dependencies
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
