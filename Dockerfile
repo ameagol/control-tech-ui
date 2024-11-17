@@ -1,8 +1,6 @@
 # Stage 1: Build the Angular app
-FROM node:20.11.0-alpine as build
+FROM node:18 as build
 WORKDIR /app
-
-RUN npm config set registry https://registry.npmjs.org/
 
 # Install dependencies
 COPY package*.json ./
@@ -11,15 +9,17 @@ RUN npm install --legacy-peer-deps
 # Install Angular CLI globally
 RUN npm install -g @angular/cli
 
-# Copy application code and build
+# Copy the application code
 COPY . .
-RUN ng build --prod
 
-# Stage 2: Serve the app with NGINX
+# Build the Angular app
+RUN ng build --configuration production
+
+# Stage 2: Serve the app using NGINX
 FROM nginx:alpine
-COPY --from=build /app/dist/control-tech /usr/share/nginx/html
+COPY --from=build /app/dist/<your-angular-app-name> /usr/share/nginx/html
 
-# Expose port 80
+# Expose the port for Vercel
 EXPOSE 80
 
 # Start NGINX server
