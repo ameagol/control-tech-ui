@@ -1,0 +1,27 @@
+.login-card {
+  width: 300px;
+  margin: 0 auto;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-card-header {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form mat-form-field {
+  margin-bottom: 10px;
+}
+
+.login-actions {
+  text-align: center;
+}
