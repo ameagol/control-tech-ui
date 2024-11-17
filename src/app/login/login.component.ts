@@ -31,7 +31,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatSlideToggleModule,
     MatSelectModule,
     MatOptionModule,
-    FormsModule],
+    FormsModule
+  ],
   standalone: true
 })
 export class LoginComponent {

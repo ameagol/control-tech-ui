@@ -1,1 +1,48 @@
-<p>device-register works!</p>
+<div class="device-register-container">
+    <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
+
+        <!-- FRU Field -->
+        <mat-form-field appearance="fill">
+            <mat-label>FRU</mat-label>
+            <input matInput formControlName="fru" placeholder="Enter FRU" />
+<!--            <mat-error *ngIf="deviceForm.get('fru').hasError('required')">-->
+<!--                FRU is required.-->
+<!--            </mat-error>-->
+        </mat-form-field>
+
+        <!-- Serial Field -->
+        <mat-form-field appearance="fill">
+            <mat-label>Serial</mat-label>
+            <input matInput formControlName="serial" placeholder="Enter Serial" />
+<!--            <mat-error *ngIf="deviceForm.get('serial').hasError('required')">-->
+<!--                Serial is required.-->
+<!--            </mat-error>-->
+        </mat-form-field>
+
+        <!-- Type Field -->
+        <mat-form-field appearance="fill">
+            <mat-label>Type</mat-label>
+            <input matInput formControlName="type" placeholder="Enter Type" />
+<!--            <mat-error *ngIf="deviceForm.get('type').hasError('required')">-->
+<!--                Type is required.-->
+<!--            </mat-error>-->
+        </mat-form-field>
+
+        <!-- Status Field -->
+        <mat-form-field appearance="fill">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option *ngFor="let status of statusOptions" [value]="status">{{ status }}</mat-option>
+            </mat-select>
+<!--            <mat-error *ngIf="deviceForm.get('status').hasError('required')">-->
+<!--                Status is required.-->
+<!--            </mat-error>-->
+        </mat-form-field>
+
+        <!-- Submit Button -->
+        <button mat-raised-button color="primary" type="submit" [disabled]="deviceForm.invalid">
+            Submit
+        </button>
+
+    </form>
+</div>

@@ -6,7 +6,6 @@ import {DeviceRegisterComponent} from './device-register/device-register.compone
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'devices', component: DeviceListComponent
-  },
+  { path: 'devices', component: DeviceListComponent },
   { path: 'devices/register', component: DeviceRegisterComponent }
 ];
