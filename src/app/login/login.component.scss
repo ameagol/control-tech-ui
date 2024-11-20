@@ -1,10 +1,12 @@
 .login-card {
   width: 300px;
   margin: 0 auto;
-  background-color: #f2f2f2;
   padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  background-color: #3f4042;
+  color: #dfe3ea;
+  border-radius: 0;
+  box-shadow: 0 8px 15px rgba(143, 141, 141, 0.2);  // Darker, more pronounced shadow
 }
 
 .login-card-header {

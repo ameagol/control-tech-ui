@@ -37,6 +37,7 @@ export class DeviceRegisterComponent {
 
   onSubmit() {
     if (this.deviceForm.valid) {
+      console.log(this.deviceForm.value);
       this.deviceService.registerDevice(this.deviceForm.value).subscribe({
         next: (response) => {
           console.log('Device registered:', response);

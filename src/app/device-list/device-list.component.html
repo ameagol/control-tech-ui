@@ -1,1 +1,39 @@
-<p>device-list works!</p>
+<mat-card class="device-list-card">
+    <mat-card-content>
+        <table mat-table [dataSource]="devices" class="mat-elevation-z8" multiTemplateDataRows>
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>#</th>
+                <td mat-cell *matCellDef="let device">{{ device.id }}</td>
+            </ng-container>
+
+            <!-- FRU Column -->
+            <ng-container matColumnDef="fru">
+                <th mat-header-cell *matHeaderCellDef>FRU</th>
+                <td mat-cell *matCellDef="let device">{{ device.fru }}</td>
+            </ng-container>
+
+            <!-- Serial Column -->
+            <ng-container matColumnDef="serial">
+                <th mat-header-cell *matHeaderCellDef>Serial</th>
+                <td mat-cell *matCellDef="let device">{{ device.serial }}</td>
+            </ng-container>
+
+            <!-- Type Column -->
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef>Type</th>
+                <td mat-cell *matCellDef="let device">{{ device.type }}</td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let device">{{ device.status }}</td>
+            </ng-container>
+
+            <!-- Header and Row Definitions -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card-content>
+</mat-card>
