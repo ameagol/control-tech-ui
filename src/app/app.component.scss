@@ -1,0 +1,124 @@
+$dark: #3f4042;
+$light: #fefefe;
+
+mat-toolbar {
+  background-color: $dark !important;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  color: white !important;
+
+  .app-name {
+    margin-left: 100px;
+  }
+
+  .app-context {
+    flex: 1;
+  }
+}
+
+mat-list-item {
+  button mat-icon {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+mat-tab-group {
+  position: fixed;
+  top: 64px; /* Adjust based on your toolbar height */
+  width: 100%;
+  z-index: 999;
+  background-color: rgb(68, 72, 74); /* Set the background color explicitly */
+
+  .tab-label {
+    color: #dfe3ea;
+  }
+}
+
+mat-sidenav {
+  background-color: #3f4042;
+  position: fixed; /* Fixing the sidenav */
+  padding-top: 10px;
+  top: 0;
+  left: 0;
+  height: 100%; /* Ensures sidenav spans the entire height */
+  z-index: 998; /* Keeps sidenav behind toolbar and tab-group */
+  width: 250px; /* Adjust based on your design */
+  overflow-y: auto; /* Ensures scrolling if content exceeds height */
+
+  mat-list {
+    padding: 0;
+    .mat-button {
+      color: #ffffff;
+      font-weight: 500;
+      text-align: left;
+      height: 48px;
+      overflow: hidden;
+      min-width: 48px;
+    }
+  }
+}
+
+header {
+  border-bottom: 1px solid #222;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 1), 0 1px 2px rgba(0, 0, 0, 1);
+
+  .user-name, .app-name {
+    padding-bottom: 7px;
+  }
+
+  .user-icon {
+    color: #fefefe;
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    padding: 4px;
+  }
+}
+
+footer {
+  background-color: $dark;
+  color: $light;
+  padding: .25em 1em;
+  position: fixed; /* Fix footer to the bottom */
+  bottom: 0;
+  width: 100%; /* Ensure it spans the entire width */
+  z-index: 100; /* Keep it above other content */
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.2); /* Optional, for shadow effect */
+  border-top: 1px solid #707172;
+}
+
+.content {
+  color: $dark;
+  padding-bottom: 50px;
+  padding-top: 140px;
+  background-color: #272727;
+}
+
+.mat-subheader {
+  background-color: #272727 !important;
+  border-bottom: #313131 1px solid;
+}
+
+.material-icons {
+  font-size: 36px;
+}
+
+mat-icon.mat-default-theme, mat-icon {
+  color: #dfe3ea;
+  width: 36px;
+  height: 36px;
+  padding-top: 6px;
+}
+
+@media screen and (min-width: 320px) {
+  mat-sidenav {
+    max-width: 90px;
+  }
+}

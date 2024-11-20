@@ -1,1 +1,40 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+    <!-- Sidenav -->
+    <mat-sidenav #sidenav mode="side" [opened]="true">
+        <mat-list>
+            <mat-list-item *ngFor="let nav of navs">
+                <button mat-button [routerLink]="nav.state">
+                    <mat-icon>{{ nav.icon }}</mat-icon>
+                </button>
+            </mat-list-item>
+        </mat-list>
+    </mat-sidenav>
+
+    <!-- Main Content -->
+    <mat-sidenav-content>
+        <!-- Toolbar -->
+        <mat-toolbar class="toolbar" color="primary">
+            <span class="app-name">{{title}}</span>
+            <span class="app-context"></span>
+            <span class="user-name">User</span>
+            <mat-icon class="user-icon">account_circle</mat-icon>
+        </mat-toolbar>
+
+        <!-- Tab Navigation -->
+        <mat-tab-group>
+            <mat-tab *ngFor="let nav of secondaryNavs">
+                <ng-template mat-tab-label><span class="tab-label">{{ nav }}</span></ng-template>
+            </mat-tab>
+        </mat-tab-group>
+
+        <!-- Content Section -->
+        <section class="content">
+            <router-outlet></router-outlet>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            {{date}} <span class="lastUpdate"></span>
+        </footer>
+    </mat-sidenav-content>
+</mat-sidenav-container>
