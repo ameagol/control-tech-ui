@@ -1,13 +1,115 @@
+$dark: #3f4042;
+$light: #a0a0a8;
 
-.device-list-card {
-  background-color: #3f4042;
-  border-radius: 0;
-  margin: 20px;
-
-  td, th {
-    background-color: #3f4042;
-    color: #dfe3ea;
-  }
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; /* Distribute space evenly */
+  gap: 16px; /* Space between cards */
 }
 
+.event-card {
+  width: calc(33.33% - 16px);
+  max-width: 250px;
+  min-width: 220px;
+  margin: 16px auto;
+  border-radius: 0;
+  overflow: hidden;
 
+  background-color: #83aaf6;
+  background: linear-gradient(90deg, #80a7f6, #668eda, #4970bd, #6a90d9, #72a1ff);
+  background-size: 400% 400%;
+  background-position: 0% 50%;
+
+  mat-card-header, mat-card-image {
+    height: auto;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    height: 100px;
+    background-color: #2F2F2F;
+    color: $light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mat-mdc-card-header {
+    padding: 0;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .event-datetime {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin: -16px 16px 8px;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+    .date {
+      font-weight: bold;
+      color: #2F2F2F;
+    }
+
+    .time {
+      font-weight: bold;
+      color: #666;
+    }
+  }
+
+  mat-card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-left: 8px;
+  }
+
+  mat-card-content {
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: #efefef;
+
+      &:first-child {
+        font-weight: bold;
+        color: #f3f3f3;
+      }
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    min-height: 0;
+
+    button {
+      text-transform: uppercase;
+      font-weight: bold;
+      color: #eaeaea;
+      background-color: #545b6d;
+      border: 1px solid #545b6d;
+      padding: 8px 16px;
+      cursor: pointer;
+      width: 50%;
+
+      &:hover {
+        background-color: #2F2F2F;
+        border: 1px solid #2F2F2F;
+      }
+    }
+  }
+}

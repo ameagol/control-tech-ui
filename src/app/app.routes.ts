@@ -7,5 +7,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'devices', component: DeviceListComponent },
-  { path: 'devices/register', component: DeviceRegisterComponent }
+  { path: 'devices/register', component: DeviceRegisterComponent },
+  { path: 'devices/report', component: DeviceRegisterComponent },
+  { path: 'profile', component: DeviceRegisterComponent }
 ];

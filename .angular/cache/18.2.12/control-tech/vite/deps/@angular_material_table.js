@@ -1,22 +1,24 @@
 import {
-  DataSource,
   ScrollingModule,
-  ViewportRuler,
+  ViewportRuler
+} from "./chunk-ABGVPK2D.js";
+import {
+  DataSource,
   _DisposeViewRepeaterStrategy,
   _RecycleViewRepeaterStrategy,
   _VIEW_REPEATER_STRATEGY,
   _ViewRepeaterOperation,
   isDataSource
-} from "./chunk-II2JRIGW.js";
+} from "./chunk-U6ASYTC7.js";
 import {
   Directionality,
   MatCommonModule,
   Platform,
   _isNumberValue
-} from "./chunk-LV3FAZNE.js";
+} from "./chunk-XD3NNE3W.js";
 import {
   DOCUMENT
-} from "./chunk-7LCKGNH5.js";
+} from "./chunk-KQMFKWEY.js";
 import {
   Attribute,
   BehaviorSubject,
@@ -87,7 +89,7 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate1,
   ɵɵviewQuery
-} from "./chunk-YANH5WPM.js";
+} from "./chunk-GFVPYYQJ.js";
 
 // node_modules/@angular/cdk/fesm2022/table.mjs
 var _c0 = [[["caption"]], [["colgroup"], ["col"]], "*"];
@@ -2079,7 +2081,10 @@ var CdkTable = class _CdkTable {
    * re-render that section.
    */
   _renderUpdatedColumns() {
-    const columnsDiffReducer = (acc, def) => acc || !!def.getColumnsDiff();
+    const columnsDiffReducer = (acc, def) => {
+      const diff = !!def.getColumnsDiff();
+      return acc || diff;
+    };
     const dataColumnsChanged = this._rowDefs.reduce(columnsDiffReducer, false);
     if (dataColumnsChanged) {
       this._forceRenderDataRows();

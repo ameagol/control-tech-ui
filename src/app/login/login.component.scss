@@ -1,29 +1,135 @@
+$dark: #3f4042;
+$light: #fefefe;
+
+$dark: #3f4042;
+$light: #fefefe;
+
 .login-card {
   width: 300px;
-  margin: 0 auto;
   padding: 20px;
+  background-color: $dark;
+  border-radius: 8px; // Subtle rounding for modern design
+  margin: 20px auto; // Center the card horizontally and add vertical margin
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); // Subtle elevation effect
+  color: $light;
 
-  background-color: #3f4042;
-  color: #dfe3ea;
-  border-radius: 0;
-  box-shadow: 0 8px 15px rgba(143, 141, 141, 0.2);  // Darker, more pronounced shadow
+  &.mat-elevation-z8 {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); // Enhance shadow for material design
+  }
+
+  mat-card-header {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: $light;
+  }
+
+  mat-card-title {
+    font-size: 1.5rem; // Larger, bold title for better visibility
+  }
+
+  mat-card-content {
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px; // Add spacing between form fields
+
+      mat-form-field {
+        .mat-label {
+          color: rgba(255, 255, 255, 0.6); // Softer label color
+        }
+
+        .mat-input-element {
+          color: $light; // Input text color
+        }
+
+        .mat-form-field-outline {
+          border-color: rgba(255, 255, 255, 0.4); // Outline color
+        }
+
+        &:hover .mat-form-field-outline {
+          border-color: $light; // Highlight on hover
+        }
+      }
+    }
+  }
+
+  mat-card-actions {
+    text-align: center;
+    margin-top: 20px;
+
+    button {
+      width: 100%; // Full-width button
+      padding: 10px;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: lighten($dark, 10%);
+      color: $light;
+      &:hover {
+        background-color: lighten($dark, 15%);
+      }
+      &:disabled {
+        background-color: darken($dark, 10%);
+        color: rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
 }
 
-.login-card-header {
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 20px;
+// General input styling
+input,
+textarea {
+  background-color: $dark; // Default background color
+  color: $light; // Default text color
+  border: none;
+  outline: none;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.6); // Softer placeholder color
+  }
+
+  &:focus {
+    background-color: $dark; // Ensure background stays the same when focused
+    color: $light;
+  }
 }
 
-.login-form {
-  display: flex;
-  flex-direction: column;
+// Autofill styling for inputs
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px $dark inset !important; // Forces autofill background
+  -webkit-text-fill-color: $light !important; // Ensures autofill text color matches
+  transition: background-color 0s, color 0s; // Prevent transition flashing
 }
 
-.login-form mat-form-field {
-  margin-bottom: 10px;
+// Firefox-specific autofill styling
+input:-moz-autofill,
+textarea:-moz-autofill {
+  background-color: $dark !important; // Match the dark theme
+  color: $light !important;
 }
 
-.login-actions {
-  text-align: center;
+// Reset autofill styles for all inputs
+input:-internal-autofill-selected,
+textarea:-internal-autofill-selected {
+  background-color: $dark !important; // Maintain custom background
+  color: $light !important; // Maintain custom text color
+  border: none !important;
+}
+
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .login-card {
+    width: 90%; // Expand to fit smaller screens
+    padding: 15px; // Reduce padding for compact view
+  }
+
+  mat-card-title {
+    font-size: 1.25rem; // Slightly smaller title for mobile
+  }
+
+  button {
+    padding: 8px; // Adjust button padding for smaller screens
+  }
 }

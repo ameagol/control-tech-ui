@@ -1,39 +1,121 @@
-<mat-card class="device-list-card">
-    <mat-card-content>
-        <table mat-table [dataSource]="devices" class="mat-elevation-z8" multiTemplateDataRows>
-            <!-- ID Column -->
-            <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>#</th>
-                <td mat-cell *matCellDef="let device">{{ device.id }}</td>
-            </ng-container>
+<!--<mat-card class="device-list-card">-->
+<!--    <mat-card-content>-->
+<!--        <table mat-table [dataSource]="devices" class="mat-elevation-z8" multiTemplateDataRows>-->
+<!--            &lt;!&ndash; ID Column &ndash;&gt;-->
+<!--            <ng-container matColumnDef="id">-->
+<!--                <th mat-header-cell *matHeaderCellDef>#</th>-->
+<!--                <td mat-cell *matCellDef="let device">{{ device.id }}</td>-->
+<!--            </ng-container>-->
 
-            <!-- FRU Column -->
-            <ng-container matColumnDef="fru">
-                <th mat-header-cell *matHeaderCellDef>FRU</th>
-                <td mat-cell *matCellDef="let device">{{ device.fru }}</td>
-            </ng-container>
+<!--            &lt;!&ndash; FRU Column &ndash;&gt;-->
+<!--            <ng-container matColumnDef="fru">-->
+<!--                <th mat-header-cell *matHeaderCellDef>FRU</th>-->
+<!--                <td mat-cell *matCellDef="let device">{{ device.fru }}</td>-->
+<!--            </ng-container>-->
 
-            <!-- Serial Column -->
-            <ng-container matColumnDef="serial">
-                <th mat-header-cell *matHeaderCellDef>Serial</th>
-                <td mat-cell *matCellDef="let device">{{ device.serial }}</td>
-            </ng-container>
+<!--            &lt;!&ndash; Serial Column &ndash;&gt;-->
+<!--            <ng-container matColumnDef="serial">-->
+<!--                <th mat-header-cell *matHeaderCellDef>Serial</th>-->
+<!--                <td mat-cell *matCellDef="let device">{{ device.serial }}</td>-->
+<!--            </ng-container>-->
 
-            <!-- Type Column -->
-            <ng-container matColumnDef="type">
-                <th mat-header-cell *matHeaderCellDef>Type</th>
-                <td mat-cell *matCellDef="let device">{{ device.type }}</td>
-            </ng-container>
+<!--            &lt;!&ndash; Type Column &ndash;&gt;-->
+<!--            <ng-container matColumnDef="type">-->
+<!--                <th mat-header-cell *matHeaderCellDef>Type</th>-->
+<!--                <td mat-cell *matCellDef="let device">{{ device.type }}</td>-->
+<!--            </ng-container>-->
 
-            <!-- Status Column -->
-            <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef>Status</th>
-                <td mat-cell *matCellDef="let device">{{ device.status }}</td>
-            </ng-container>
+<!--            &lt;!&ndash; Status Column &ndash;&gt;-->
+<!--            <ng-container matColumnDef="status">-->
+<!--                <th mat-header-cell *matHeaderCellDef>Status</th>-->
+<!--                <td mat-cell *matCellDef="let device">{{ device.status }}</td>-->
+<!--            </ng-container>-->
 
-            <!-- Header and Row Definitions -->
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-    </mat-card-content>
-</mat-card>
+<!--            &lt;!&ndash; Header and Row Definitions &ndash;&gt;-->
+<!--            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--        </table>-->
+<!--    </mat-card-content>-->
+<!--</mat-card>-->
+<!--<div class="device-list-container" >-->
+<!--    <div *ngFor="let device of devices" class="device-card-row">-->
+<!--        &lt;!&ndash; Left Card (20% Width) &ndash;&gt;-->
+<!--        <mat-card class="device-card-left" appearance="outlined" >-->
+<!--            <mat-card-content>-->
+<!--                <b>Description:</b> {{ device.description }}-->
+<!--            </mat-card-content>-->
+<!--        </mat-card>-->
+
+<!--        &lt;!&ndash; Right Card (80% Width) &ndash;&gt;-->
+<!--        <mat-card class="device-card-right" appearance="outlined">-->
+<!--            <mat-card-content>-->
+<!--                <div>-->
+<!--                    <b>Serial:</b> {{ device.serial }} <b>Type:</b> {{ device.type }} <b>FRU:</b> {{ device.fru }}-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <b>Branch:</b> {{ device.branch }} <b>Value:</b> {{ device.value | currency }}-->
+<!--                    <b>Weight:</b> {{ device.weight }}kg-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <b>Email:</b> {{ device.emailAddress }} <b>Owner:</b> {{ device.owner }}-->
+<!--                </div>-->
+<!--            </mat-card-content>-->
+<!--        </mat-card>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="container">-->
+<!--    <div class="card-container">-->
+<!--        <mat-card *ngFor="let device of devices" class="mat-elevation-z8">-->
+<!--            <mat-card-content>-->
+<!--                <mat-grid-list cols="6" rowHeight="50px">-->
+<!--                    &lt;!&ndash; Row 1 &ndash;&gt;-->
+<!--                    <mat-grid-tile class="grid-header">Serial</mat-grid-tile>-->
+<!--                    <mat-grid-tile class="grid-header">Fru</mat-grid-tile>-->
+<!--                    <mat-grid-tile class="grid-header">Type</mat-grid-tile>-->
+<!--                    <mat-grid-tile class="grid-header">Status</mat-grid-tile>-->
+<!--                    <mat-grid-tile class="grid-header">Owner</mat-grid-tile>-->
+<!--                    <mat-grid-tile class="grid-header">Email</mat-grid-tile>-->
+
+<!--                    <mat-grid-tile class="grid-body">{{device.serial}}</mat-grid-tile>-->
+<!--                    <mat-grid-tile class="grid-body">{{device.fru}}</mat-grid-tile>-->
+<!--                    <mat-grid-tile class="grid-body">{{device.type}}</mat-grid-tile>-->
+<!--                    <mat-grid-tile class="grid-body">{{device.status}}</mat-grid-tile>-->
+<!--                    <mat-grid-tile class="grid-body">{{device.owner}}</mat-grid-tile>-->
+<!--                    <mat-grid-tile class="grid-body">{{device.email}}</mat-grid-tile>-->
+<!--                </mat-grid-list>-->
+<!--            </mat-card-content>-->
+<!--        </mat-card>-->
+<!--    </div>-->
+<!--</div>-->
+<div class="card-container" appearance="outlined">
+    <mat-card *ngFor="let device of devices" class="event-card" >
+        <!-- Image Section -->
+        <mat-card-header>
+            <ng-container>
+                <div class="image-placeholder">
+                    <span>No Image Available</span>
+                </div>
+            </ng-container>
+        </mat-card-header>
+
+        <!-- Date and Time Section -->
+        <mat-card-subtitle class="event-datetime">
+            <div class="date">{{ device.createdAt | date: 'MMM d, YYYY' }}</div>
+            <div class="time">{{ device.createdAt | date: 'HH:mm' }}</div>
+        </mat-card-subtitle>
+
+        <!-- Event Details -->
+        <mat-card-title>{{ device.name }}</mat-card-title>
+        <mat-card-content>
+            <p><strong>Serial: {{ device.serial }}</strong></p>
+            <p>Status: {{ device.status }} <br /> Type: {{ device.type}}</p>
+        </mat-card-content>
+
+        <!-- Action Buttons -->
+        <mat-card-actions>
+            <button mat-button>DETAILS</button>
+            <button mat-button color="primary">QR Code</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

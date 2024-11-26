@@ -1,20 +1,22 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  DataSource,
   ScrollingModule,
-  ViewportRuler,
+  ViewportRuler
+} from "./chunk-HBJSMIMN.js";
+import {
+  DataSource,
   _DisposeViewRepeaterStrategy,
   _RecycleViewRepeaterStrategy,
   _VIEW_REPEATER_STRATEGY,
   _ViewRepeaterOperation,
   isDataSource
-} from "./chunk-23U7MMZ3.js";
+} from "./chunk-W5DQNGT2.js";
 import {
   Directionality,
   MatCommonModule,
   Platform,
   _isNumberValue
-} from "./chunk-ILGN7LK2.js";
+} from "./chunk-A23DSYZX.js";
 import {
   DOCUMENT
 } from "./chunk-AWWGSX4I.js";
@@ -2079,7 +2081,10 @@ var CdkTable = class _CdkTable {
    * re-render that section.
    */
   _renderUpdatedColumns() {
-    const columnsDiffReducer = (acc, def) => acc || !!def.getColumnsDiff();
+    const columnsDiffReducer = (acc, def) => {
+      const diff = !!def.getColumnsDiff();
+      return acc || diff;
+    };
     const dataColumnsChanged = this._rowDefs.reduce(columnsDiffReducer, false);
     if (dataColumnsChanged) {
       this._forceRenderDataRows();

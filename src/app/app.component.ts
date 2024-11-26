@@ -33,18 +33,18 @@ export class AppComponent implements OnInit {
   public date: number = 0;
 
   navs = [
-    { label: 'Home', icon: 'home', state: 'app.home.home1' },
-    { label: 'Scheduling', icon: 'today', state: 'app.scheduling.scheduling1' },
-    { label: 'Reporting', icon: 'description', state: 'app.reporting.reporting1' },
-    { label: 'System Administration', icon: 'settings', state: 'app.admin.admin1' },
-    { label: 'Support', icon: 'help', state: '#' },
+    { label: 'Home', icon: 'home', route: '/' },
+    { label: 'Devices', icon: 'devices',  route: '/devices' },
+    { label: 'Add Device', icon: 'library_add',  route: '/devices/register' },
+    { label: 'Profile', icon: 'settings' },
+    { label: 'Help', icon: 'help', state: '#' },
   ];
 
   secondaryNavs = [
-    'home',
-    'scheduling',
-    'reporting',
-    'admin'
+    'Home',
+    'Device',
+    'Profile',
+    'Help'
   ];
   smiley = ':)';
 

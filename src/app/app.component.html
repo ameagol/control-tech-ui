@@ -2,8 +2,8 @@
     <!-- Sidenav -->
     <mat-sidenav #sidenav mode="side" [opened]="true">
         <mat-list>
-            <mat-list-item *ngFor="let nav of navs">
-                <button mat-button [routerLink]="nav.state">
+            <mat-list-item class="left-menu" *ngFor="let nav of navs">
+                <button mat-button [routerLink]="nav.route">
                     <mat-icon>{{ nav.icon }}</mat-icon>
                 </button>
             </mat-list-item>
@@ -21,7 +21,7 @@
         </mat-toolbar>
 
         <!-- Tab Navigation -->
-        <mat-tab-group>
+        <mat-tab-group >
             <mat-tab *ngFor="let nav of secondaryNavs">
                 <ng-template mat-tab-label><span class="tab-label">{{ nav }}</span></ng-template>
             </mat-tab>
@@ -34,7 +34,7 @@
 
         <!-- Footer -->
         <footer>
-            {{date}} <span class="lastUpdate"></span>
+            {{ date | date: 'longDate' }} <span class="lastUpdate"></span>
         </footer>
     </mat-sidenav-content>
 </mat-sidenav-container>

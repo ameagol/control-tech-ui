@@ -1,48 +1,91 @@
-<div class="device-register-container">
-    <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
+<div class="device-register-container mat-elevation-z8">
+    <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()" class="form-container">
 
-        <!-- FRU Field -->
-        <mat-form-field appearance="fill">
-            <mat-label>FRU</mat-label>
-            <input matInput formControlName="fru" placeholder="Enter FRU" />
-<!--            <mat-error *ngIf="deviceForm.get('fru').hasError('required')">-->
-<!--                FRU is required.-->
-<!--            </mat-error>-->
-        </mat-form-field>
+        <div class="form-row">
+            <!-- Invoice Number Field -->
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" placeholder="Computador" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <!-- FRU Field -->
+            <mat-form-field appearance="outline" class="custom-input">
+                <mat-label>FRU</mat-label>
+                <input matInput formControlName="fru" placeholder="Enter FRU" />
+            </mat-form-field>
 
-        <!-- Serial Field -->
-        <mat-form-field appearance="fill">
-            <mat-label>Serial</mat-label>
-            <input matInput formControlName="serial" placeholder="Enter Serial" />
-<!--            <mat-error *ngIf="deviceForm.get('serial').hasError('required')">-->
-<!--                Serial is required.-->
-<!--            </mat-error>-->
-        </mat-form-field>
+            <!-- Serial Field -->
+            <mat-form-field appearance="outline">
+                <mat-label>Serial</mat-label>
+                <input matInput formControlName="serial" placeholder="Enter Serial" />
+            </mat-form-field>
+        </div>
 
-        <!-- Type Field -->
-        <mat-form-field appearance="fill">
-            <mat-label>Type</mat-label>
-            <input matInput formControlName="type" placeholder="Enter Type" />
-<!--            <mat-error *ngIf="deviceForm.get('type').hasError('required')">-->
-<!--                Type is required.-->
-<!--            </mat-error>-->
-        </mat-form-field>
+        <div class="form-row">
+            <!-- Type Field -->
+            <mat-form-field appearance="outline">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option *ngFor="let type of typeOptions" [value]="type">{{ type }}</mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <!-- Status Field -->
-        <mat-form-field appearance="fill">
-            <mat-label>Status</mat-label>
-            <mat-select formControlName="status">
-                <mat-option *ngFor="let status of statusOptions" [value]="status">{{ status }}</mat-option>
-            </mat-select>
-<!--            <mat-error *ngIf="deviceForm.get('status').hasError('required')">-->
-<!--                Status is required.-->
-<!--            </mat-error>-->
-        </mat-form-field>
+            <!-- Status Field -->
+            <mat-form-field appearance="outline">
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status">
+                    <mat-option *ngFor="let status of statusOptions" [value]="status">{{ status }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <!-- Owner Field -->
+            <mat-form-field appearance="outline">
+                <mat-label>Owner</mat-label>
+                <input matInput formControlName="owner" placeholder="Enter Owner" />
+            </mat-form-field>
+
+            <!-- Email Address Field -->
+            <mat-form-field appearance="outline">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" type="email" placeholder="Enter Email Address" />
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <!-- Branch Field -->
+            <mat-form-field appearance="outline">
+                <mat-label>Branch</mat-label>
+                <mat-select formControlName="branch">
+                    <mat-option *ngFor="let branch of branchOptions" [value]="branch">{{ branch }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Invoice Number Field -->
+            <mat-form-field appearance="outline">
+                <mat-label>Invoice Number</mat-label>
+                <input matInput formControlName="invoice" placeholder="Enter Invoice Number" />
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <!-- Description Field -->
+            <mat-form-field appearance="outline" class="description-field">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" placeholder="Enter Description"></textarea>
+            </mat-form-field>
+        </div>
 
         <!-- Submit Button -->
         <button mat-raised-button color="primary" type="submit" [disabled]="deviceForm.invalid">
             Submit
         </button>
-
     </form>
+
+    <!-- QR Code Display -->
+    <div class="qr-code-container" *ngIf="qrCodeValue">
+        <qr-code [value]="qrCodeValue" [size]="150" [errorCorrectionLevel]="'M'"></qr-code>
+    </div>
 </div>

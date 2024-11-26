@@ -5,6 +5,11 @@ import {MatTableModule} from "@angular/material/table";
 import {MatCardModule} from "@angular/material/card";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {CommonModule} from "@angular/common";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatIcon} from "@angular/material/icon";
+import {QrCodeModule} from "ng-qrcode";
 
 @Component({
   selector: 'app-device-list',
@@ -12,24 +17,28 @@ import {MatPaginatorModule} from "@angular/material/paginator";
   imports: [
     MatTableModule,
     MatCardModule,
+    MatIcon,
     MatPaginatorModule,
-    MatSortModule
+    MatGridListModule,
+    MatDividerModule,
+    MatSortModule,
+    CommonModule,
+      QrCodeModule,
   ],
   templateUrl: './device-list.component.html',
   styleUrl: './device-list.component.scss'
 })
 export class DeviceListComponent implements OnInit {
-
-  displayedColumns: string[] = ['id', 'fru', 'serial', 'type', 'status'];
   public devices: Device[] = [];
 
-  constructor(private deviceListService: DeviceListService) {
-  }
+  constructor(private deviceListService: DeviceListService) {}
 
   ngOnInit() {
     this.deviceListService.findAll().subscribe(data => {
-      this.devices = data;
+      if(data){
+        this.devices = data;
+      }
     });
   }
-
 }
+
