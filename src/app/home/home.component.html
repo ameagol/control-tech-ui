@@ -1,0 +1,15 @@
+<h3 class="title">Bem vindo</h3>
+<mat-divider class="divider"></mat-divider>
+<div class="articles-container">
+    <mat-grid-list cols="3" rowHeight="1:1" gutterSize="20px">
+        <mat-grid-tile *ngFor="let article of articles">
+            <mat-card class="article-card">
+                <img mat-card-image [src]="article.image" [alt]="article.title" class="article-image">
+                <mat-card-content>
+                    <h2 class="article-title">{{ article.title }}</h2>
+                    <p>{{ article.description }}</p>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

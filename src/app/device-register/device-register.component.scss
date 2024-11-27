@@ -5,15 +5,17 @@ $dark: #3f4042;
 $light: #fefefe;
 
 .device-register-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px; // Space between form and QR code
-  max-width: 1000px; // Limit overall width
-  margin: 0 auto; // Center container
+
+  justify-content: center;
   padding: 20px;
+  max-width: 95%;
+  margin: 40px auto;
+  border-radius: 10px;
+
+  display: flex;
+  gap: 20px; // Space between form and QR code
   background-color: $dark;
   color: $light;
-  border-radius: 8px; // Rounded corners for container
 
   &.mat-elevation-z8 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Material elevation effect

@@ -1,7 +1,7 @@
 <mat-sidenav-container>
     <!-- Sidenav -->
-    <mat-sidenav #sidenav mode="side" [opened]="true">
-        <mat-list>
+    <mat-sidenav *ngIf="isAuthenticated" #sidenav mode="side" [opened]="true">
+        <mat-list >
             <mat-list-item class="left-menu" *ngFor="let nav of navs">
                 <button mat-button [routerLink]="nav.route">
                     <mat-icon>{{ nav.icon }}</mat-icon>
@@ -13,21 +13,30 @@
     <!-- Main Content -->
     <mat-sidenav-content>
         <!-- Toolbar -->
-        <mat-toolbar class="toolbar" color="primary">
-            <span class="app-name">{{title}}</span>
+        <mat-toolbar *ngIf="isAuthenticated" class="toolbar" color="primary">
+            <span class="app-name">{{ title }}</span>
             <span class="app-context"></span>
-            <span class="user-name">User</span>
-            <mat-icon class="user-icon">account_circle</mat-icon>
+
+            <button mat-button (click)="profile()">
+                <span class="user-name">{{ username }}</span>
+                <mat-icon class="user-icon">account_circle</mat-icon>
+            </button>
+
+            <button mat-button (click)="logout()">
+                <mat-icon class="logout">logout</mat-icon>
+            </button>
         </mat-toolbar>
 
         <!-- Tab Navigation -->
-        <mat-tab-group >
-            <mat-tab *ngFor="let nav of secondaryNavs">
-                <ng-template mat-tab-label><span class="tab-label">{{ nav }}</span></ng-template>
+        <mat-tab-group *ngIf="isAuthenticated">
+            <mat-tab *ngFor="let nav of navs">
+                <ng-template mat-tab-label>
+                    <span (click)="changeRounte(nav.route)" class="tab-label">{{ nav.label }}</span>
+                </ng-template>
             </mat-tab>
         </mat-tab-group>
 
-        <!-- Content Section -->
+            <!-- Content Section -->
         <section class="content">
             <router-outlet></router-outlet>
         </section>

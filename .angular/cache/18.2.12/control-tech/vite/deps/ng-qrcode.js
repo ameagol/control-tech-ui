@@ -1,16 +1,13 @@
 import {
   CommonModule,
   NgStyle
-} from "./chunk-KQMFKWEY.js";
+} from "./chunk-UWKVHAMK.js";
 import {
   Component,
   Directive,
   Input,
   NgModule,
   ViewContainerRef,
-  __async,
-  __commonJS,
-  __toESM,
   isDevMode,
   setClassMetadata,
   ɵɵNgOnChangesFeature,
@@ -25,7 +22,14 @@ import {
   ɵɵnextContext,
   ɵɵproperty,
   ɵɵtemplate
-} from "./chunk-GFVPYYQJ.js";
+} from "./chunk-ZPEGPBMO.js";
+import "./chunk-FEIJOMI7.js";
+import "./chunk-NU7MMHIF.js";
+import {
+  __async,
+  __commonJS,
+  __toESM
+} from "./chunk-JONHB32E.js";
 
 // node_modules/qrcode/lib/can-promise.js
 var require_can_promise = __commonJS({

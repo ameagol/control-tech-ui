@@ -7,16 +7,17 @@
       <mat-form-field appearance="outline">
         <mat-label>Username</mat-label>
         <input matInput [(ngModel)]="username" name="username">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-icon matSuffix>person</mat-icon>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input matInput type="password" [(ngModel)]="password" name="password">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-icon matSuffix>key</mat-icon>
       </mat-form-field>
     </form>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button color="primary" (click)="login()">Login</button>
   </mat-card-actions>
+  <span *ngIf="errorMessage">{{errorMessage}}</span>
 </mat-card>

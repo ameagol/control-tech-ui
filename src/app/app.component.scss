@@ -36,12 +36,13 @@ mat-list-item {
 mat-tab-group {
   position: fixed;
   top: 64px; /* Adjust based on your toolbar height */
-  width: 100%;
+  width: 95%;
   z-index: 999;
   background-color: rgb(68, 72, 74); /* Set the background color explicitly */
 
   .tab-label {
     color: #dfe3ea;
+    width: 100%;
   }
 }
 
@@ -53,7 +54,7 @@ mat-sidenav {
   left: 0;
   height: 100%; /* Ensures sidenav spans the entire height */
   z-index: 998; /* Keeps sidenav behind toolbar and tab-group */
-  width: 250px; /* Adjust based on your design */
+  //width: 250px; /* Adjust based on your design */
   overflow-y: auto; /* Ensures scrolling if content exceeds height */
 
   mat-list {
@@ -75,6 +76,7 @@ header {
 
   .user-name, .app-name {
     padding-bottom: 7px;
+    margin-top: 3px;
   }
 
   .user-icon {

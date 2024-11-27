@@ -25,9 +25,8 @@ $light: #a0a0a8;
     height: auto;
   }
 
-  .image-placeholder {
+  .image-placeholder img {
     width: 100%;
-    height: 100px;
     background-color: #2F2F2F;
     color: $light;
     display: flex;
