@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatCardModule} from '@angular/material/card';
 import {MatError, MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
@@ -44,18 +44,28 @@ export class LoginComponent {
   password = '';
   public errorMessage: string = '';
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router,
+              private authService: AuthService,
+              private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params['errorMessage']) {
+        this.errorMessage = decodeURIComponent(params['errorMessage']);
+      }
+    });
+  }
+
 
   login(): void {
     this.authService.login(this.username, this.password).subscribe(
         response => {
-          // Store the access token in sessionStorage
           this.authService.storeToken(response.accessToken);
 
           this.router.navigate(['/home']);
         },
         error => {
-          this.errorMessage = 'Login failed. Please check your credentials.';
+          this.errorMessage = error.message;
         }
     );
   }

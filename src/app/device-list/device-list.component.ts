@@ -8,8 +8,12 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {CommonModule} from "@angular/common";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatDividerModule} from "@angular/material/divider";
-import {MatIcon} from "@angular/material/icon";
+import {MatIcon, MatIconModule} from "@angular/material/icon";
 import {QrCodeModule} from "ng-qrcode";
+import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
+import {FormsModule} from "@angular/forms";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-device-list',
@@ -22,23 +26,49 @@ import {QrCodeModule} from "ng-qrcode";
     MatGridListModule,
     MatDividerModule,
     MatSortModule,
+      MatLabel,
+      MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+      FormsModule,
+    MatButtonModule,
     CommonModule,
-      QrCodeModule,
+    QrCodeModule,
   ],
   templateUrl: './device-list.component.html',
   styleUrl: './device-list.component.scss'
 })
 export class DeviceListComponent implements OnInit {
   public devices: Device[] = [];
+  public filteredDevices: Device[] = [];
+  public searchQuery: string = '';
 
   constructor(private deviceListService: DeviceListService) {}
 
   ngOnInit() {
+    this.fetchDevices();
+  }
+
+  fetchDevices(): void {
     this.deviceListService.findAll().subscribe(data => {
-      if(data){
+      if (data) {
         this.devices = data;
       }
     });
+  }
+
+  searchDevices(): void {
+    if (this.searchQuery) {
+      this.deviceListService.searchDevices(this.searchQuery)
+          .subscribe(results => {
+        this.devices = results;
+      });
+    }
+  }
+
+  clearSearch(): void {
+    this.searchQuery = '';
+    this.devices = [];
   }
 }
 

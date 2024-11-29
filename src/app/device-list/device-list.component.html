@@ -88,6 +88,17 @@
 <!--        </mat-card>-->
 <!--    </div>-->
 <!--</div>-->
+
+
+<div class="search-bar">
+    <mat-form-field appearance="outline">
+        <mat-label>Search Devices</mat-label>
+        <input matInput [(ngModel)]="searchQuery" placeholder="Enter serial, name, or type" />
+    </mat-form-field>
+    <button mat-button color="primary" (click)="searchDevices()">Search</button>
+    <button mat-button style="position: relative; margin-left: 0; " (click)="fetchDevices()">Clear</button>
+
+</div>
 <div class="card-container" appearance="outlined">
     <mat-card *ngFor="let device of devices" class="event-card" >
         <!-- Image Section -->

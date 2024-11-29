@@ -11,16 +11,9 @@ import {API_DEVICES} from "../constants/device-options.constants";
 export class DeviceRegisterService {
     private apiUrl = 'http://localhost:8081' + API_DEVICES;
 
-    constructor(private http: HttpClient, private authService: AuthService) {
-    }
+    constructor(private http: HttpClient) {}
 
     registerDevice(device: Device): Observable<any> {
-        const token = this.authService.getToken();
-        if(token) {
-            const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-            return this.http.post(`${this.apiUrl}`, device, { headers });
-        }
-
-        return of({})
+        return this.http.post(`${this.apiUrl}`, device);
     }
 }

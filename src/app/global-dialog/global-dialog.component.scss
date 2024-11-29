@@ -1,0 +1,8 @@
+.mat-dialog-container {
+  background-color: #f0f0f0; // Override dark theme with a lighter color specifically for the dialog
+  color: #000; // Text color for visibility
+
+  button.mat-button {
+    border-radius: 0;
+  }
+}

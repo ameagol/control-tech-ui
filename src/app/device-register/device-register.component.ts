@@ -9,7 +9,15 @@ import {CommonModule} from "@angular/common";
 import {QrCodeModule} from "ng-qrcode";
 import {MatCardModule} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
-import {BRANCH_OPTIONS, STATUS_OPTIONS, TYPE_OPTIONS} from "../constants/device-options.constants";
+import {
+  BRANCH_OPTIONS,
+  NEW_DEVICE_ERROR,
+  NEW_DEVICE_SUCCESS,
+  STATUS_OPTIONS,
+  TYPE_OPTIONS
+} from "../constants/device-options.constants";
+import {MatDialog} from "@angular/material/dialog";
+import {GlobalDialogComponent} from "../global-dialog/global-dialog.component";
 
 @Component({
   selector: 'app-device-register',
@@ -24,7 +32,8 @@ import {BRANCH_OPTIONS, STATUS_OPTIONS, TYPE_OPTIONS} from "../constants/device-
     MatIcon,
     CommonModule,
     FormsModule,
-    QrCodeModule
+    QrCodeModule,
+    GlobalDialogComponent
   ],
   templateUrl: './device-register.component.html',
   styleUrl: './device-register.component.scss',
@@ -37,7 +46,10 @@ export class DeviceRegisterComponent {
   typeOptions = TYPE_OPTIONS;
   qrCodeValue: string = '';
 
-  constructor(private fb: FormBuilder, private deviceService: DeviceRegisterService) {
+  constructor(
+      private dialog: MatDialog,
+      private fb: FormBuilder,
+      private deviceService: DeviceRegisterService) {
     this.deviceForm = this.fb.group({
       name: ['', Validators.required],
       fru: ['', Validators.required],
@@ -52,20 +64,25 @@ export class DeviceRegisterComponent {
     });
   }
 
+  openDialog(title: string, message: string): void {
+    this.dialog.open(GlobalDialogComponent, {
+      data: { title, message }
+    });
+  }
+
   onSubmit() {
     if (this.deviceForm.valid) {
-      console.log(this.deviceForm.value);
       this.deviceService.registerDevice(this.deviceForm.value).subscribe({
         next: (response) => {
           console.log('Device registered:', response);
+          this.openDialog('Success', NEW_DEVICE_SUCCESS);
+          this.qrCodeValue = `https://example.com/device/${this.deviceForm.value.serial}`;
         },
         error: (err) => {
           console.error('Error registering device:', err);
+          this.openDialog('Error', NEW_DEVICE_ERROR);
         }
       });
-
-      // Generate QR code based on device details (e.g., serial)
-      this.qrCodeValue = `https://example.com/device/${this.deviceForm.value.serial}`;
     }
   }
 }

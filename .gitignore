@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+*.js
 chunk*
 npm-debug.log*
 yarn-debug.log*

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Observable } from 'rxjs';
 import { Device } from "../model/device.model";
-import {AuthService} from "./auth.service";
 import {API_DEVICES} from "../constants/device-options.constants";
 
 @Injectable({
@@ -11,17 +10,13 @@ import {API_DEVICES} from "../constants/device-options.constants";
 export class DeviceListService {
     private apiUrl = 'http://localhost:8081' + API_DEVICES;
 
-    constructor(private http: HttpClient, private authService: AuthService) {
-    }
+    constructor(private http: HttpClient) {}
 
     public findAll(): Observable<Device[]> {
-        const token = this.authService.getToken();
+        return this.http.get<Device[]>(this.apiUrl);
+    }
 
-        if (token) {
-            const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-            return this.http.get<Device[]>(this.apiUrl, { headers });
-        }
-
-        return of([]);
+    public searchDevices(query: string): Observable<Device[]> {
+        return this.http.post<Device[]>(`${this.apiUrl}/search`, { search: query });
     }
 }

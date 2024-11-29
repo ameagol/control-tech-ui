@@ -1,6 +1,16 @@
 $dark: #3f4042;
 $light: #a0a0a8;
 
+.search-bar {
+  margin-left:40%;
+  width: 400px;
+
+  button {
+    margin-left: 10px;
+    border-radius: 0;
+  }
+}
+
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -101,6 +111,7 @@ $light: #a0a0a8;
       color: #eaeaea;
       background-color: #545b6d;
       border: 1px solid #545b6d;
+      border-radius: 0;
       padding: 8px 16px;
       cursor: pointer;
       width: 50%;
