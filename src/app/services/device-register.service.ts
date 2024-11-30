@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {HttpClient } from '@angular/common/http';
+import {Observable } from 'rxjs';
 import { Device } from "../model/device.model";
-import {AuthService} from "./auth.service";
-import {API_DEVICES} from "../constants/device-options.constants";
+import {API_DEVICES, PROD_HOST} from "../constants/device-options.constants";
 
 @Injectable({
     providedIn: 'root'
 })
 export class DeviceRegisterService {
-    private apiUrl = 'http://localhost:8081' + API_DEVICES;
+    private apiUrl = PROD_HOST + API_DEVICES;
 
     constructor(private http: HttpClient) {}
 

@@ -4,13 +4,13 @@ import {BehaviorSubject, map, Observable, throwError} from 'rxjs';
 
 import { catchError } from 'rxjs/operators';
 import {LoginResponse} from "../model/login-response";
-import {LOGIN} from "../constants/device-options.constants";
+import {LOGIN, PROD_HOST} from "../constants/device-options.constants";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    private apiUrl = 'http://localhost:8081/' + LOGIN;
+    private apiUrl = PROD_HOST + LOGIN;
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.checkToken());
 
     constructor(private http: HttpClient) {}
