@@ -13,9 +13,16 @@ $light: #a0a0a8;
 
 .table-view {
   color: $light;
+  padding: 10px;
 }
 
+.table-container {
+  padding: 0 20px 0 20px;
 
+  table {
+    background-color: $dark;
+  }
+}
 .card-container {
   display: flex;
   flex-wrap: wrap;

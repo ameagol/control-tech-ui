@@ -18,6 +18,7 @@ import {
 } from "../constants/device-options.constants";
 import {MatDialog} from "@angular/material/dialog";
 import {GlobalDialogComponent} from "../global-dialog/global-dialog.component";
+import {MatDividerModule} from "@angular/material/divider";
 
 @Component({
   selector: 'app-device-register',
@@ -30,6 +31,7 @@ import {GlobalDialogComponent} from "../global-dialog/global-dialog.component";
     MatButtonModule,
     MatCardModule,
     MatIcon,
+    MatDividerModule,
     CommonModule,
     FormsModule,
     QrCodeModule,
