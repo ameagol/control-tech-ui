@@ -3,7 +3,7 @@ $light: #a0a0a8;
 
 .search-bar {
   margin-left:40%;
-  width: 400px;
+  width: 600px;
 
   button {
     margin-left: 10px;
@@ -11,11 +11,16 @@ $light: #a0a0a8;
   }
 }
 
+.table-view {
+  color: $light;
+}
+
+
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around; /* Distribute space evenly */
-  gap: 16px; /* Space between cards */
+  justify-content: space-around;
+  gap: 16px;
 }
 
 .event-card {

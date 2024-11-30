@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Device} from "../model/device.model";
 import {DeviceListService} from "../services/device-list.service";
-import {MatTableModule} from "@angular/material/table";
+import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {MatCardModule} from "@angular/material/card";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -14,6 +14,9 @@ import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {FormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import {MatSliderModule} from "@angular/material/slider";
+import {MatSlideToggleChange, MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-device-list',
@@ -26,12 +29,14 @@ import {MatButtonModule} from "@angular/material/button";
     MatGridListModule,
     MatDividerModule,
     MatSortModule,
-      MatLabel,
-      MatFormFieldModule,
+    MatLabel,
+    MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-      FormsModule,
+    FormsModule,
     MatButtonModule,
+    MatSliderModule,
+    MatSlideToggleModule,
     CommonModule,
     QrCodeModule,
   ],
@@ -40,8 +45,20 @@ import {MatButtonModule} from "@angular/material/button";
 })
 export class DeviceListComponent implements OnInit {
   public devices: Device[] = [];
-  public filteredDevices: Device[] = [];
   public searchQuery: string = '';
+  public showTable: boolean = false;
+  displayedColumns: string[] = [
+    'name',
+    'status',
+    'fru',
+    'serial',
+    'type',
+    'owner',
+    'branch',
+    'invoice',
+    'createdAt'
+  ];
+  dataSource = new MatTableDataSource<Device>();
 
   constructor(private deviceListService: DeviceListService) {}
 
@@ -69,6 +86,16 @@ export class DeviceListComponent implements OnInit {
   clearSearch(): void {
     this.searchQuery = '';
     this.devices = [];
+  }
+
+  onToggleChange(event: MatSlideToggleChange): void {
+    if (event.checked) {
+      this.showTable = true;
+      this.dataSource.data = this.devices;
+    }else {
+      this.showTable = false;
+      this.dataSource.data = [];
+    }
   }
 }
 
