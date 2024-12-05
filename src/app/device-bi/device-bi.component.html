@@ -46,17 +46,15 @@
     </div>
 
     <div class="chart">
-        <p class="chart-title">Devices by Type</p>
-        <ngx-charts-bar-vertical
+        <p class="chart-title">Devices by Branch</p>
+        <ngx-charts-pie-chart
                 [results]="devicesByBranch"
-                [xAxis]="true"
-                [yAxis]="true"
                 [legend]="true"
-                [showXAxisLabel]="true"
-                [showYAxisLabel]="true"
-                [xAxisLabel]="'Branch'"
-                [yAxisLabel]="'Count'"
+                [explodeSlices]="false"
+                [labels]="true"
+                [doughnut]="true"
                 [scheme]="colorScheme"
-        ></ngx-charts-bar-vertical>
+                [gradient]="true"
+        ></ngx-charts-pie-chart>
     </div>
 </div>

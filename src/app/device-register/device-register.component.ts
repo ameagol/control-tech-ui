@@ -1,6 +1,5 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {DeviceRegisterService} from "../services/device-register.service";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
@@ -19,6 +18,11 @@ import {
 import {MatDialog} from "@angular/material/dialog";
 import {GlobalDialogComponent} from "../global-dialog/global-dialog.component";
 import {MatDividerModule} from "@angular/material/divider";
+import {NgxPrintModule} from "ngx-print";
+import {ActivatedRoute} from "@angular/router";
+import {DeviceListService} from "../services/device-list.service";
+import {Device} from "../model/device.model";
+import {DeviceRegisterService} from "../services/device-register.service";
 
 @Component({
   selector: 'app-device-register',
@@ -35,23 +39,26 @@ import {MatDividerModule} from "@angular/material/divider";
     CommonModule,
     FormsModule,
     QrCodeModule,
-    GlobalDialogComponent
+    GlobalDialogComponent,
+    NgxPrintModule
   ],
   templateUrl: './device-register.component.html',
   styleUrl: './device-register.component.scss',
-  encapsulation: ViewEncapsulation.None,
 })
-export class DeviceRegisterComponent {
+export class DeviceRegisterComponent implements OnInit{
   deviceForm: FormGroup;
   statusOptions = STATUS_OPTIONS;
   branchOptions = BRANCH_OPTIONS;
   typeOptions = TYPE_OPTIONS;
   qrCodeValue: string = '';
+  device: Device | null = null;
 
   constructor(
       private dialog: MatDialog,
       private fb: FormBuilder,
-      private deviceService: DeviceRegisterService) {
+      private deviceListService: DeviceListService,
+      private deviceService: DeviceRegisterService,
+      private route: ActivatedRoute) {
     this.deviceForm = this.fb.group({
       name: ['', Validators.required],
       fru: ['', Validators.required],
@@ -63,6 +70,50 @@ export class DeviceRegisterComponent {
       invoice: ['', Validators.required],
       branch: ['', Validators.required],
       description: ['']
+    });
+  }
+
+  ngOnInit(): void {
+    const serial = this.route.snapshot.queryParamMap.get('serial');
+
+    if (serial) {
+      this.deviceListService.getDeviceBySerial(serial).subscribe({
+        next: (device) => {
+          this.deviceForm.patchValue(device);
+
+          this.qrCodeValue = `https://example.com/device/${device.serial}`;
+        },
+        error: (err) => {
+          console.error('Error fetching device data:', err);
+        }
+      });
+    }
+  }
+
+  loadDevice(serial: string) {
+    this.deviceListService.getDeviceBySerial(serial).subscribe({
+      next: (device: Device) => {
+        this.device = device;
+
+        this.deviceForm.patchValue({
+          name: device.name,
+          fru: device.fru,
+          serial: device.serial,
+          type: device.type,
+          status: device.status,
+          owner: device.owner,
+          email: device.email,
+          invoice: device.invoice,
+          branch: device.branch,
+          description: device.description
+        });
+
+        this.qrCodeValue = `https://example.com/device/${device.serial}`;
+      },
+      error: (err) => {
+        console.error('Error fetching device:', err);
+        this.openDialog('Error', 'Failed to load device details');
+      }
     });
   }
 
@@ -87,4 +138,5 @@ export class DeviceRegisterComponent {
       });
     }
   }
+
 }

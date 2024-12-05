@@ -11,6 +11,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {CommonModule} from "@angular/common";
 import {AuthService} from "./services/auth.service";
 import {Subscription} from "rxjs";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {LoadingService} from "./services/loading.service";
+import {NAVIGATION_MENU} from "./constants/device-options.constants";
 
 @Component({
   selector: 'app-root',
@@ -24,6 +27,7 @@ import {Subscription} from "rxjs";
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
+    MatProgressBarModule,
     MatTabsModule,
     CommonModule,
   ],
@@ -37,16 +41,17 @@ export class AppComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
   private authSubscription: Subscription = new Subscription();
 
-  navs = [
-    { label: 'Home', icon: 'home', route: '/home' },
-    { label: 'Dispositivos', icon: 'devices', route: '/devices' },
-    { label: 'Cadastrar', icon: 'add_circle', route: '/devices/register' },
-    { label: 'Relatorios', icon: 'insert_chart', route: '/reports' },
-  ];
+  navs = NAVIGATION_MENU;
 
-  public activeLink = this.navs[0].route;
+  showProgressBar = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService,
+              private router: Router,
+              private loadingService: LoadingService) {
+    this.loadingService.loading$.subscribe((isLoading) => {
+      this.showProgressBar = isLoading;
+    });
+  }
 
   ngOnInit() {
     this.date = Date.now();

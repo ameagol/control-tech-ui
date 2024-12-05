@@ -1,25 +1,21 @@
 $dark: #3f4042;
 $light: #fefefe;
 
-$dark: #3f4042;
-$light: #fefefe;
-
 .title {
   padding-left: 50px;
   color: #dfe3ea;
 }
+
 .divider {
   padding-left: 40px;
 }
 
 .device-register-container {
-
   justify-content: center;
   padding: 20px;
-  max-width: 95%;
+  max-width: 800px;
   margin: 40px auto;
   border-radius: 10px;
-
   display: flex;
   gap: 20px; // Space between form and QR code
   background-color: $dark;
@@ -28,6 +24,11 @@ $light: #fefefe;
   &.mat-elevation-z8 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Material elevation effect
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column; // Stack form and QR code on smaller screens
+  }
+
 }
 
 .custom-form .mat-placeholder,
@@ -57,6 +58,7 @@ $light: #fefefe;
   button {
     align-self: flex-start; // Align button to the start of the form
     margin-top: 20px;
+    margin-right: 10px;
     border-radius: 4px;
     background-color: lighten($dark, 10%);
     color: $light;
@@ -68,32 +70,55 @@ $light: #fefefe;
       color: rgba(255, 255, 255, 0.3);
     }
   }
-}
 
-.qr-code-container {
-  flex: 1; // QR code takes less space
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: darken($dark, 5%);
-  border-radius: 8px;
-  padding: 10px;
-
-  qr-code {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // QR code shadow
+  .mat-mdc-card {
+    border-radius: 0;
+    background-color: white;
+    color: $dark;
   }
-}
 
-@media (max-width: 768px) {
-  .device-register-container {
+  .label-container {
+    display: flex;
     flex-direction: column;
-  }
-
-  .form-container {
     width: 100%;
   }
 
-  .qr-code-container {
-    margin-top: 20px;
+  .label-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .label-columns {
+    border-top: 1px solid $dark;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .label-column {
+    margin-top: 10px;
+    margin-bottom: -10px;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .qr-column {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
+  .label-qrcode {
+    margin-bottom: -9px;
+    margin-top: -9px;
+  }
+}
+@media print {
+  body {
+    background-color: red !important;  // Test if print styles are applied
   }
 }

@@ -16,6 +16,10 @@ export class DeviceListService {
         return this.http.get<Device[]>(this.apiUrl);
     }
 
+    public getDeviceBySerial(serial: string): Observable<Device> {
+        return this.http.get<Device>(`${this.apiUrl}/serial/${serial}`);
+    }
+
     public searchDevices(query: string): Observable<Device[]> {
         return this.http.post<Device[]>(`${this.apiUrl}/search`, { search: query });
     }

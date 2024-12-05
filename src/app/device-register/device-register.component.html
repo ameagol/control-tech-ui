@@ -7,20 +7,20 @@
             <!-- Invoice Number Field -->
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
-                <input matInput formControlName="name" placeholder="MacBook Pro 20'" />
+                <input matInput formControlName="name" placeholder="MacBook Pro 20'"/>
             </mat-form-field>
         </div>
         <div class="form-row">
             <!-- FRU Field -->
             <mat-form-field appearance="outline" class="custom-input">
                 <mat-label>FRU</mat-label>
-                <input matInput formControlName="fru" placeholder="Enter FRU" />
+                <input matInput formControlName="fru" placeholder="Enter FRU"/>
             </mat-form-field>
 
             <!-- Serial Field -->
             <mat-form-field appearance="outline">
                 <mat-label>Serial</mat-label>
-                <input matInput formControlName="serial" placeholder="Enter Serial" />
+                <input matInput formControlName="serial" placeholder="Enter Serial"/>
             </mat-form-field>
         </div>
 
@@ -46,13 +46,13 @@
             <!-- Owner Field -->
             <mat-form-field appearance="outline">
                 <mat-label>Owner</mat-label>
-                <input matInput formControlName="owner" placeholder="Enter Owner" />
+                <input matInput formControlName="owner" placeholder="Enter Owner"/>
             </mat-form-field>
 
             <!-- Email Address Field -->
             <mat-form-field appearance="outline">
                 <mat-label>Email Address</mat-label>
-                <input matInput formControlName="email" type="email" placeholder="Enter Email Address" />
+                <input matInput formControlName="email" type="email" placeholder="Enter Email Address"/>
             </mat-form-field>
         </div>
 
@@ -68,26 +68,54 @@
             <!-- Invoice Number Field -->
             <mat-form-field appearance="outline">
                 <mat-label>Invoice Number</mat-label>
-                <input matInput formControlName="invoice" placeholder="Enter Invoice Number" />
+                <input matInput formControlName="invoice" placeholder="Enter Invoice Number"/>
             </mat-form-field>
         </div>
 
         <div class="form-row">
-            <!-- Description Field -->
             <mat-form-field appearance="outline" class="description-field">
                 <mat-label>Description</mat-label>
                 <textarea matInput formControlName="description" placeholder="Enter Description"></textarea>
             </mat-form-field>
         </div>
+        <div class="form-row">
 
-        <!-- Submit Button -->
-        <button mat-raised-button color="primary" type="submit" [disabled]="deviceForm.invalid">
-            Submit
-        </button>
+            <div id="label-container">
+                <mat-card class="label-card" *ngIf="qrCodeValue">
+                    <mat-card-content>
+                        <div class="label-container">
+                            <span><strong>Name:</strong> {{ deviceForm.get('name')?.value }}</span>
+                            <div class="label-columns">
+                                <div class="label-column">
+                                    <span class="mat-label-small"><strong>Owner:</strong> {{ deviceForm.get('owner')?.value }}</span>
+                                    <span class="mat-label-small"><strong>Type:</strong> {{ deviceForm.get('type')?.value }}</span>
+                                    <span class="mat-label-small"><strong>Status:</strong> {{ deviceForm.get('status')?.value }}</span>
+                                    <span class="mat-label-small"><strong>Serial:</strong> {{ deviceForm.get('serial')?.value }}</span>
+                                    <span class="mat-label-small"><strong>FRU:</strong> {{ deviceForm.get('fru')?.value }}</span>
+                                </div>
+                                <div class="label-column qr-column">
+                                    <div class="label-qrcode">
+                                        <qr-code [value]="qrCodeValue" [size]="100"
+                                                 [errorCorrectionLevel]="'M'"></qr-code>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+            </div>
+        </div>
+        <div class="example-button-row">
+            <button  *ngIf="!qrCodeValue" mat-raised-button color="primary" type="submit" [disabled]="deviceForm.invalid">
+                Save
+            </button>
+            <button mat-raised-button color="accent" class="print-button" type="button" ngxPrint
+                    [printSectionId]="'label-container'">
+                Print Label
+                <mat-icon class="printer-icon">print</mat-icon>
+            </button>
+        </div>
     </form>
-
-    <!-- QR Code Display -->
-    <div class="qr-code-container" *ngIf="qrCodeValue">
-        <qr-code [value]="qrCodeValue" [size]="150" [errorCorrectionLevel]="'M'"></qr-code>
-    </div>
 </div>

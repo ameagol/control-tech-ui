@@ -17,6 +17,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatSlideToggleChange, MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {DISPLAY_COLUMNS} from "../constants/device-options.constants";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-device-list',
@@ -51,7 +52,8 @@ export class DeviceListComponent implements OnInit {
 
   dataSource = new MatTableDataSource<Device>();
 
-  constructor(private deviceListService: DeviceListService) {}
+  constructor(private deviceListService: DeviceListService,
+              private router: Router) {}
 
   ngOnInit() {
     this.fetchDevices();
@@ -87,6 +89,12 @@ export class DeviceListComponent implements OnInit {
       this.showTable = false;
       this.dataSource.data = [];
     }
+  }
+
+  viewDeviceDetails(serial: string) {
+    this.router.navigate(['/devices/register'], {
+      queryParams: { serial: serial },
+    });
   }
 }
 

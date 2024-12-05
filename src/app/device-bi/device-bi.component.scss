@@ -13,6 +13,7 @@
     flex: 1 1 calc(50% - 16px); // Each chart takes 50% of the width, with some gap
     max-width: 50%; // Ensure charts don't exceed half the screen width
     height: 500px;
+    color: #dfe3ea ;
 
     ngx-charts-bar-vertical,
     ngx-charts-pie-chart {

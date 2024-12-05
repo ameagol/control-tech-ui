@@ -1,8 +1,18 @@
 $dark: #3f4042;
 $light: #a0a0a8;
 
+.device-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #1b1b1b;
+  max-width: 95%;
+  margin: 40px auto;
+  border-radius: 10px;
+}
+
 .search-bar {
-  margin-left:40%;
+  margin-left: 40%;
   width: 600px;
 
   button {
@@ -17,12 +27,13 @@ $light: #a0a0a8;
 }
 
 .table-container {
-  padding: 0 20px 0 20px;
+  padding: 0 20px;
 
   table {
     background-color: $dark;
   }
 }
+
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -32,12 +43,11 @@ $light: #a0a0a8;
 
 .event-card {
   width: calc(33.33% - 16px);
-  max-width: 250px;
+  max-width: 310px;
   min-width: 220px;
   margin: 16px auto;
-  border-radius: 0;
+  border-radius: 5px;
   overflow: hidden;
-
   background-color: #83aaf6;
   background: linear-gradient(90deg, #80a7f6, #668eda, #4970bd, #6a90d9, #72a1ff);
   background-size: 400% 400%;
@@ -47,13 +57,15 @@ $light: #a0a0a8;
     height: auto;
   }
 
-  .image-placeholder img {
-    width: 100%;
-    background-color: #2F2F2F;
-    color: $light;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .image-placeholder {
+    img {
+      width: 100%;
+      background-color: #2f2f2f;
+      color: $light;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   .mat-mdc-card-header {
@@ -82,7 +94,7 @@ $light: #a0a0a8;
 
     .date {
       font-weight: bold;
-      color: #2F2F2F;
+      color: #2f2f2f;
     }
 
     .time {
@@ -129,8 +141,8 @@ $light: #a0a0a8;
       width: 50%;
 
       &:hover {
-        background-color: #2F2F2F;
-        border: 1px solid #2F2F2F;
+        background-color: #2f2f2f;
+        border: 1px solid #2f2f2f;
       }
     }
   }

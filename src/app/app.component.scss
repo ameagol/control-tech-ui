@@ -105,6 +105,11 @@ footer {
   padding-bottom: 50px;
   padding-top: 140px;
   background-color: #272727;
+
+  mat-progress-bar {
+    margin-top: -28px;
+    position: fixed;
+  }
 }
 
 .mat-subheader {
