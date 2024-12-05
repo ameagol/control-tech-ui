@@ -40,8 +40,8 @@ export class AppComponent implements OnInit, OnDestroy {
   navs = [
     { label: 'Home', icon: 'home', route: '/home' },
     { label: 'Dispositivos', icon: 'devices', route: '/devices' },
-    { label: 'Cadastrar', icon: 'library_add', route: '/devices/register' },
-    { label: 'Relatorios', icon: 'report', route: '/reports' },
+    { label: 'Cadastrar', icon: 'add_circle', route: '/devices/register' },
+    { label: 'Relatorios', icon: 'insert_chart', route: '/reports' },
   ];
 
   public activeLink = this.navs[0].route;

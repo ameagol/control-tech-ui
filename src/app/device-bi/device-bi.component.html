@@ -1,0 +1,62 @@
+<div class="charts-container">
+    <!-- Pie Chart for Devices by Type -->
+    <div class="chart">
+        <p class="chart-title">Devices by Type</p>
+        <ngx-charts-pie-chart
+                [results]="devicesByType"
+                [legend]="true"
+                [explodeSlices]="false"
+                [labels]="true"
+                [doughnut]="true"
+                [scheme]="colorScheme"
+                [gradient]="true"
+        ></ngx-charts-pie-chart>
+    </div>
+
+    <!-- Bar Chart for Devices by Status -->
+    <div class="chart">
+        <p class="chart-title">Devices by Status</p>
+        <ngx-charts-bar-vertical
+                [results]="devicesByStatus"
+                [xAxis]="true"
+                [yAxis]="true"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxisLabel]="'Status'"
+                [yAxisLabel]="'Count'"
+                [scheme]="colorScheme"
+        ></ngx-charts-bar-vertical>
+    </div>
+
+    <!-- Bar Chart for Devices by Branch -->
+    <div class="chart">
+        <p class="chart-title">Devices by Branch</p>
+        <ngx-charts-bar-vertical
+                [results]="devicesByBranch"
+                [xAxis]="true"
+                [yAxis]="true"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxisLabel]="'Branch'"
+                [yAxisLabel]="'Count'"
+                [scheme]="colorScheme"
+        ></ngx-charts-bar-vertical>
+    </div>
+
+    <div class="chart">
+        <p class="chart-title">Devices by Type</p>
+        <ngx-charts-bar-vertical
+                [results]="devicesByBranch"
+                [xAxis]="true"
+                [yAxis]="true"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxisLabel]="'Branch'"
+                [yAxisLabel]="'Count'"
+                [scheme]="colorScheme"
+        ></ngx-charts-bar-vertical>
+    </div>
+</div>

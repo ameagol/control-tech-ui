@@ -16,7 +16,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatSlideToggleChange, MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {Router} from "@angular/router";
+import {DISPLAY_COLUMNS} from "../constants/device-options.constants";
 
 @Component({
   selector: 'app-device-list',
@@ -47,17 +47,8 @@ export class DeviceListComponent implements OnInit {
   public devices: Device[] = [];
   public searchQuery: string = '';
   public showTable: boolean = false;
-  displayedColumns: string[] = [
-    'name',
-    'status',
-    'fru',
-    'serial',
-    'type',
-    'owner',
-    'branch',
-    'invoice',
-    'createdAt'
-  ];
+  displayedColumns: string[] = DISPLAY_COLUMNS;
+
   dataSource = new MatTableDataSource<Device>();
 
   constructor(private deviceListService: DeviceListService) {}
