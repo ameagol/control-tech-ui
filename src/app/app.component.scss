@@ -107,8 +107,9 @@ footer {
   background-color: #272727;
 
   mat-progress-bar {
-    margin-top: -28px;
+    margin-top: -140px;
     position: fixed;
+    z-index: 99999;
   }
 }
 

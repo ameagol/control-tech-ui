@@ -14,7 +14,7 @@
     <mat-sidenav-content>
         <!-- Toolbar -->
         <mat-toolbar *ngIf="isAuthenticated" class="toolbar" color="primary">
-            <span class="app-name">{{ title }}</span>
+            <span class="app-name">Control Tech</span>
             <span class="app-context"></span>
 
             <button mat-button (click)="profile()">
@@ -28,17 +28,17 @@
         </mat-toolbar>
 
         <!-- Tab Navigation -->
-        <mat-tab-group *ngIf="isAuthenticated">
+        <mat-tab-group *ngIf="isAuthenticated" [(selectedIndex)]="activeTabIndex" (selectedIndexChange)="onTabChange($event)">
             <mat-tab *ngFor="let nav of navs">
                 <ng-template mat-tab-label>
-                    <span (click)="changeRounte(nav.route)" class="tab-label">{{ nav.label }}</span>
+                    <span  class="tab-label">{{ nav.label }}</span>
                 </ng-template>
             </mat-tab>
         </mat-tab-group>
 
             <!-- Content Section -->
         <section class="content">
-            <mat-progress-bar *ngIf="showProgressBar" mode="indeterminate"></mat-progress-bar>
+            <mat-progress-bar *ngIf="loading$ | async" mode="indeterminate"></mat-progress-bar>
             <router-outlet></router-outlet>
         </section>
 

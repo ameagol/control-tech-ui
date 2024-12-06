@@ -17,16 +17,12 @@ $light: #fefefe;
   margin: 40px auto;
   border-radius: 10px;
   display: flex;
-  gap: 20px; // Space between form and QR code
+  gap: 20px;
   background-color: $dark;
   color: $light;
 
-  &.mat-elevation-z8 {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Material elevation effect
-  }
-
   @media (max-width: 768px) {
-    flex-direction: column; // Stack form and QR code on smaller screens
+    flex-direction: column;
   }
 
 }
@@ -37,26 +33,26 @@ $light: #fefefe;
 }
 
 .form-container {
-  flex: 2; // Form takes more space than the QR code
+  flex: 2;
   display: flex;
   flex-direction: column;
-  gap: 20px; // Space between rows
+  gap: 20px;
 
   .form-row {
     display: flex;
-    gap: 20px; // Space between fields
+    gap: 20px;
 
     mat-form-field {
-      flex: 1; // Each field takes equal space in the row
+      flex: 1;
     }
 
     .description-field {
-      width: 100%; // Text area spans the full row
+      width: 100%;
     }
   }
 
   button {
-    align-self: flex-start; // Align button to the start of the form
+    align-self: flex-start;
     margin-top: 20px;
     margin-right: 10px;
     border-radius: 4px;
@@ -115,10 +111,5 @@ $light: #fefefe;
   .label-qrcode {
     margin-bottom: -9px;
     margin-top: -9px;
-  }
-}
-@media print {
-  body {
-    background-color: red !important;  // Test if print styles are applied
   }
 }

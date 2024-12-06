@@ -10,7 +10,7 @@
         <span class="table-view">table view</span>
     </mat-slide-toggle>
 </div>
-<div class="device-container">
+<div *ngIf="devices.length > 0" class="device-container">
     <div *ngIf="!showTable" class="card-container" appearance="outlined">
         <mat-card *ngFor="let device of devices" class="event-card" >
             <!-- Image Section -->
@@ -43,7 +43,7 @@
         </mat-card>
     </div>
     <div class="table-container" *ngIf="showTable">
-        <table mat-table [dataSource]="devices" class="mat-elevation-z8">
+        <table mat-table matSort [dataSource]="devices" class="mat-elevation-z8">
 
             <!-- Name Column -->
             <ng-container matColumnDef="name">

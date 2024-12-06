@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router, RouterModule, RouterOutlet} from '@angular/router';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {NavigationEnd, Router, RouterModule} from '@angular/router';
 import {MatIcon} from "@angular/material/icon";
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -10,12 +10,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import {CommonModule} from "@angular/common";
 import {AuthService} from "./services/auth.service";
-import {Subscription} from "rxjs";
+import {filter, Observable, Subscription} from "rxjs";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {LoadingService} from "./services/loading.service";
 import {NAVIGATION_MENU} from "./constants/device-options.constants";
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-root',
   standalone: true,
   imports: [
@@ -35,45 +36,50 @@ import {NAVIGATION_MENU} from "./constants/device-options.constants";
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'Control Tech';
+
   public date: number = 0;
+  private authSubscription: Subscription = new Subscription();
+  private routerSubscription!: Subscription;
+  loading$: Observable<boolean>;
   username: string | null = null;
   isAuthenticated: boolean = false;
-  private authSubscription: Subscription = new Subscription();
-
+  activeTabIndex = 0;
   navs = NAVIGATION_MENU;
 
-  showProgressBar = false;
-
-  constructor(private authService: AuthService,
-              private router: Router,
-              private loadingService: LoadingService) {
-    this.loadingService.loading$.subscribe((isLoading) => {
-      this.showProgressBar = isLoading;
-    });
+  constructor(private authService: AuthService, private router: Router, private loadingService: LoadingService) {
+    this.loading$ = this.loadingService.loading$;
   }
 
-  ngOnInit() {
-    this.date = Date.now();
+  ngOnInit(): void {
+    this.date = Date.now()
     this.authSubscription = this.authService.isAuthenticated().subscribe(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
       if (this.isAuthenticated) {
         const token = sessionStorage.getItem('accessToken');
         if (token) {
-          const decodedToken = JSON.parse(atob(token.split('.')[1]));
-          this.username = decodedToken.sub;
+          try {
+            const decodedToken = JSON.parse(atob(token.split('.')[1]));
+            this.username = decodedToken?.sub || 'Unknown User';
+          } catch (error) {
+            console.error('Error decoding token:', error);
+          }
         }
       } else {
         this.router.navigate(['/login']);
       }
     });
+
+    this.routerSubscription = this.router.events
+        .pipe(filter(event => event instanceof NavigationEnd))
+        .subscribe(() => {
+          const currentRoute = this.router.url.split('?')[0];
+          this.activeTabIndex = this.navs.findIndex(nav => nav.route === currentRoute);
+        });
   }
 
-  ngOnDestroy() {
-    // Clean up subscription when the component is destroyed
-    if (this.authSubscription) {
-      this.authSubscription.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    this.authSubscription?.unsubscribe();
+    this.routerSubscription?.unsubscribe();
   }
 
   logout() {
@@ -82,12 +88,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 
-  profile() {
-    this.router.navigate(['/profile']);
+  changeRounte(route: any) {
+    this.router.navigate([route]);
   }
 
-  changeRounte(route: any) {
-console.log(route);
-    this.router.navigate([route]);
+  onTabChange(index: number): void {
+    const selectedNav = this.navs[index];
+    this.router.navigate([selectedNav.route]);
+  }
+
+  profile() {
+    // to-do
   }
 }

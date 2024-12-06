@@ -15,6 +15,7 @@ export const NEW_DEVICE_ERROR: string = 'Error registering device. Please try ag
 /* URL */
 export const PROD_HOST = 'https://control-tech-api-production.up.railway.app/';
 export const DEV_HOST = 'http://localhost:8081';
+export const UI_HOST = 'https://control-tech-ui.vercel.app/'
 export const API_DEVICES = 'api/devices';
 export const LOGIN = 'api/auth/login';
 export const NAVIGATION_MENU = [

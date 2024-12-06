@@ -7,7 +7,7 @@
             <!-- Invoice Number Field -->
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
-                <input matInput formControlName="name" placeholder="MacBook Pro 20'"/>
+                <input matInput formControlName="name" placeholder="MacBook Pro 20'" required/>
             </mat-form-field>
         </div>
         <div class="form-row">
@@ -79,11 +79,9 @@
             </mat-form-field>
         </div>
         <div class="form-row">
-
             <div id="label-container">
                 <mat-card class="label-card" *ngIf="qrCodeValue">
                     <mat-card-content>
-                        <div class="label-container">
                             <span><strong>Name:</strong> {{ deviceForm.get('name')?.value }}</span>
                             <div class="label-columns">
                                 <div class="label-column">
@@ -95,13 +93,13 @@
                                 </div>
                                 <div class="label-column qr-column">
                                     <div class="label-qrcode">
-                                        <qr-code [value]="qrCodeValue" [size]="100"
-                                                 [errorCorrectionLevel]="'M'"></qr-code>
+                                        <qr-code [value]="qrCodeValue" [size]="90"
+                                                 [errorCorrectionLevel]="'M'">
+                                        </qr-code>
                                     </div>
 
                                 </div>
                             </div>
-                        </div>
                     </mat-card-content>
                 </mat-card>
 
@@ -111,9 +109,13 @@
             <button  *ngIf="!qrCodeValue" mat-raised-button color="primary" type="submit" [disabled]="deviceForm.invalid">
                 Save
             </button>
-            <button mat-raised-button color="accent" class="print-button" type="button" ngxPrint
+            <button *ngIf="qrCodeValue" mat-raised-button color="accent" class="print-button" type="button"
+                    ngxPrint
+                    [useExistingCss]="true"
+                    [openNewTab]="true"
+                    [styleSheetFile]="'assets/css/custom1.css'"
                     [printSectionId]="'label-container'">
-                Print Label
+                    Print Label
                 <mat-icon class="printer-icon">print</mat-icon>
             </button>
         </div>

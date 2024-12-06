@@ -10,7 +10,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'devices', component: DeviceListComponent },
-  { path: 'devices/register', component: DeviceRegisterComponent },
+  { path: 'devices/register', component: DeviceRegisterComponent, data: { refreshComponent: true } },
   { path: 'devices/report', component: DeviceRegisterComponent },
   { path: 'reports', component: DeviceBIComponent }
 ];

@@ -17,14 +17,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             setHeaders: {
                 Authorization: `Bearer ${token}`,
             },
-        })
-        : req;
+        }) : req;
 
-    loadingService.show(); // Show progress bar
+    loadingService.show();
 
     return next(clonedReq).pipe(
         finalize(() => {
-            loadingService.hide(); // Hide progress bar after response
+            loadingService.hide();
         }),
         catchError((error) => {
             if ([0, 401].includes(error.status)) {

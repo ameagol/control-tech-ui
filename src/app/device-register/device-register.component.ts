@@ -13,7 +13,7 @@ import {
   NEW_DEVICE_ERROR,
   NEW_DEVICE_SUCCESS,
   STATUS_OPTIONS,
-  TYPE_OPTIONS
+  TYPE_OPTIONS, UI_HOST
 } from "../constants/device-options.constants";
 import {MatDialog} from "@angular/material/dialog";
 import {GlobalDialogComponent} from "../global-dialog/global-dialog.component";
@@ -59,6 +59,7 @@ export class DeviceRegisterComponent implements OnInit{
       private deviceListService: DeviceListService,
       private deviceService: DeviceRegisterService,
       private route: ActivatedRoute) {
+
     this.deviceForm = this.fb.group({
       name: ['', Validators.required],
       fru: ['', Validators.required],
@@ -77,36 +78,14 @@ export class DeviceRegisterComponent implements OnInit{
     const serial = this.route.snapshot.queryParamMap.get('serial');
 
     if (serial) {
-      this.deviceListService.getDeviceBySerial(serial).subscribe({
-        next: (device) => {
-          this.deviceForm.patchValue(device);
-
-          this.qrCodeValue = `https://example.com/device/${device.serial}`;
-        },
-        error: (err) => {
-          console.error('Error fetching device data:', err);
-        }
-      });
+      this.loadDevice(serial);
     }
   }
 
   loadDevice(serial: string) {
     this.deviceListService.getDeviceBySerial(serial).subscribe({
       next: (device: Device) => {
-        this.device = device;
-
-        this.deviceForm.patchValue({
-          name: device.name,
-          fru: device.fru,
-          serial: device.serial,
-          type: device.type,
-          status: device.status,
-          owner: device.owner,
-          email: device.email,
-          invoice: device.invoice,
-          branch: device.branch,
-          description: device.description
-        });
+        this.deviceForm.patchValue(device);
 
         this.qrCodeValue = `https://example.com/device/${device.serial}`;
       },
