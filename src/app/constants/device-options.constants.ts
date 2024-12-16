@@ -21,7 +21,7 @@ export const NEW_DEVICE_ERROR: string = 'Error registering device. Please try ag
 /**
  * Routes for BackEnd Interface
  */
-export const PROD_HOST = 'http://localhost:8080/';
+export const PROD_HOST = 'https://control-tech-api-production.up.railway.app/';
 export enum API {
     UI_HOST = 'https://control-tech-ui.vercel.app/',
     DEVICES = 'api/devices',
