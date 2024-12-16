@@ -1,35 +1,11 @@
 $dark: #3f4042;
 $light: #fefefe;
-
-.title {
-  padding-left: 50px;
-  color: #dfe3ea;
-}
-
-.divider {
-  padding-left: 40px;
-}
+$light-darkened: lighten($dark, 10%);
+$light-darker: lighten($dark, 15%);
+$darkened: darken($dark, 10%);
 
 .device-register-container {
-  justify-content: center;
-  padding: 20px;
-  max-width: 800px;
-  margin: 40px auto;
-  border-radius: 10px;
-  display: flex;
-  gap: 20px;
-  background-color: $dark;
-  color: $light;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-
-}
-
-.custom-form .mat-placeholder,
-.custom-form .mat-label {
-  color: rgba(255, 255, 255, 0.6);
+  width: 80%;
 }
 
 .form-container {
@@ -56,13 +32,16 @@ $light: #fefefe;
     margin-top: 20px;
     margin-right: 10px;
     border-radius: 4px;
-    background-color: lighten($dark, 10%);
+    background-color: $light-darkened;
     color: $light;
+    transition: background-color 0.3s;
+
     &:hover {
-      background-color: lighten($dark, 15%);
+      background-color: $light-darker;
     }
+
     &:disabled {
-      background-color: darken($dark, 10%);
+      background-color: $darkened;
       color: rgba(255, 255, 255, 0.3);
     }
   }
@@ -89,7 +68,6 @@ $light: #fefefe;
   .label-columns {
     border-top: 1px solid $dark;
     display: flex;
-    width: 100%;
     justify-content: space-between;
     gap: 10px;
   }
@@ -103,13 +81,41 @@ $light: #fefefe;
   }
 
   .qr-column {
+    display: flex;
     align-items: center;
     justify-content: center;
-    display: flex;
   }
 
   .label-qrcode {
-    margin-bottom: -9px;
-    margin-top: -9px;
+    margin: -9px 0;
   }
 }
+
+#label-container {
+  display: flex;
+  justify-content: center;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+
+  button {
+    width: auto; // Ensure buttons are only as wide as needed
+    max-width: 200px; // Optional: set a max width to prevent it from growing too large
+    text-align: center;
+
+    &.print-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .printer-icon {
+        margin-left: 8px;
+      }
+    }
+  }
+}
+

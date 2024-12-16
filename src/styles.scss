@@ -1,23 +1,25 @@
-
 @use '@angular/material' as mat;
 
-@include mat.core();
+$dark: #3f4042;
+$light: #fefefe;
 
+// Define the Material theme
 $control-tech-theme: mat.define-theme((
-  color: (
-    theme-type: dark,
-    primary: mat.$azure-palette,
-    tertiary: mat.$blue-palette,
-  ),
-  density: (
-    scale: 0,
-  )
+        color: (
+                theme-type: dark,
+                primary: mat.$azure-palette,
+                tertiary: mat.$blue-palette,
+        ),
+        density: (
+                scale: 0,
+        )
 ));
 
 :root {
   @include mat.all-component-themes($control-tech-theme);
 }
 
+// Global resets
 html, body {
   margin: 0;
 }
@@ -26,51 +28,163 @@ html, body {
   min-height: 100vh;
 }
 
-mat-sidenav {
-  border: none !important;  /* Removes any border */
-  box-shadow: none !important;  /* Removes any shadow */
-  border-radius: 0 !important;  /* Removes rounded corners */
+.title {
+  margin-left: 50px !important;
+  color: #dfe3ea;
+}
+.divider {
+  margin-left: 40px;
 }
 
+mat-sidenav {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+// Label Container Styles
 .label-container {
   display: flex;
   flex-direction: column;
   border: 0;
   max-width: 300px;
+
+  .label-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .label-columns {
+    border-top: 1px solid $dark;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+    max-width: 300px;
+  }
+
+  .label-column {
+    margin-top: 10px;
+    margin-bottom: -10px;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .qr-column {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
+  .label-qrcode {
+    margin: -9px 0;
+  }
 }
 
-.label-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 16px;
-  text-align: center;
+input, textarea {
+  background-color: $dark;
+  color: $light;
+  border: none;
+  outline: none;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &:focus {
+    background-color: $dark;
+    color: $light;
+  }
 }
 
-.label-columns {
-  border-top: 1px solid #3f4042;
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  gap: 10px;
-  max-width: 300px;
+// Global Dialog
+.mat-mdc-dialog-surface {
+  background-color: $dark !important;
+  border-radius: 0 !important;
+  color: #000; // Text color for visibility
 }
 
-.label-column {
-  margin-top: 10px;
-  margin-bottom: -10px;
-  flex: auto;
-  display: flex;
-  flex-direction: column;
+.mat-dialog-buttom {
+  padding: 10px !important;
 }
 
-.qr-column {
-  align-items: center;
-  justify-content: center;
-  display: flex;
+input:-webkit-autofill, textarea:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px $dark inset !important; // Forces autofill background
+  -webkit-text-fill-color: $light !important; // Ensures autofill text color matches
+  transition: background-color 0s, color 0s; // Prevent transition flashing
 }
 
-.label-qrcode {
-  margin-bottom: -9px;
-  margin-top: -9px;
+input:-moz-autofill, textarea:-moz-autofill {
+  background-color: $dark !important; // Match the dark theme
+  color: $light !important;
 }
+
+input:-internal-autofill-selected, textarea:-internal-autofill-selected {
+  background-color: $dark !important; // Maintain custom background
+  color: $light !important; // Maintain custom text color
+  border: none !important;
+}
+
+// Login Card Styles
+.entry-card {
+  width: 400px;
+  padding: 20px;
+  background-color: $dark !important;
+  border-radius: 8px;
+  margin: 20px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  color: $light;
+
+  mat-card-content {
+    .entry-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+
+  mat-card-actions {
+    text-align: center;
+
+    button {
+      background-color: lighten($dark, 10%) !important;
+      color: $light !important;
+      width: 100%;
+      border-radius: 4px;
+      font-weight: bold;
+
+      &:hover {
+        background-color: lighten($dark, 15%) !important;;
+      }
+
+      &:disabled {
+        background-color: darken($dark, 10%) !important;;
+        color: rgba(255, 255, 255, 0.3) !important;;
+      }
+    }
+  }
+}
+
+// Responsive Styles
+@media (max-width: 768px) {
+  .entry-card {
+    width: 90%;
+    padding: 15px;
+  }
+
+  mat-card-title {
+    font-size: 1.25rem;
+  }
+
+  button {
+    padding: 8px;
+  }
+}
+
+
+
+
 

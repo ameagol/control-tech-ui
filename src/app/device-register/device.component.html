@@ -1,0 +1,182 @@
+<h3 class="title">Cadastrar Dispositivo</h3>
+<mat-divider class="divider"></mat-divider>
+<div class="entry-card  device-register-container mat-elevation-z8">
+    <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()" class="form-container">
+
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Modelo</mat-label>
+                <input matInput formControlName="model" placeholder="MacBook Pro 20'"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Cliente</mat-label>
+                <mat-select formControlName="company">
+                    <mat-option *ngFor="let company of companies" [value]="company">
+                        {{ company.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Data</mat-label>
+                <input matInput [value]="today | date:'shortDate'" disabled>
+            </mat-form-field>
+
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>ID do Patrimonio</mat-label>
+                <input matInput formControlName="patrim"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Serial</mat-label>
+                <input matInput formControlName="serial"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Marca</mat-label>
+                <input matInput formControlName="brand" placeholder="Apple"/>
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Tipo</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option *ngFor="let type of typeOptions" [value]="type">{{ type }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status">
+                    <mat-option *ngFor="let status of statusOptions" [value]="status.name">{{ status.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Valor da Compra</mat-label>
+                <input matInput formControlName="purchaseValue" [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' , allowNegative: false}" />
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Tecnologia</mat-label>
+                <input matInput formControlName="technology" placeholder="Laser"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Função</mat-label>
+                <input matInput formControlName="function" placeholder="Multifuncional"/>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Data da Compra</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="purchaseDate">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>CPU</mat-label>
+                <input matInput formControlName="cpuModel" placeholder="I5"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Geração da CPU</mat-label>
+                <input matInput formControlName="cpuGeneration" type="number"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Total de CPU</mat-label>
+                <input matInput formControlName="cpuQuantity" type="number"/>
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Canais</mat-label>
+                <input matInput formControlName="channels" placeholder="2" type="number"/>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Tamanho da Tela</mat-label>
+                <input matInput formControlName="screenSize" placeholder="32"/>
+            </mat-form-field>
+
+        </div>
+
+
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Capacidade de Memória</mat-label>
+                <input matInput formControlName="memorySize" placeholder="32gb"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Slots de Memoria</mat-label>
+                <input matInput formControlName="memorySlots" type="number"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Tipo de Memoria</mat-label>
+                <input matInput formControlName="memoryType" placeholder="DDR"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Armazenamento</mat-label>
+                <input matInput formControlName="storage"/>
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="description-field">
+                <mat-label>Descrição</mat-label>
+                <textarea matInput formControlName="description" placeholder="descrição"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <div id="label-container">
+                <mat-card class="label-card" *ngIf="qrCodeValue">
+                    <mat-card-content>
+                            <span><strong>Modelo:</strong> {{ deviceForm.get('model')?.value }}</span>
+                            <div class="label-columns">
+                                <div class="label-column">
+                                    <span class="mat-label-small"><strong>Cliente:</strong> {{ deviceForm.get('client')?.value }}</span>
+                                    <span class="mat-label-small"><strong>Tipo:</strong> {{ deviceForm.get('type')?.value }}</span>
+                                    <span class="mat-label-small"><strong>Status:</strong> {{ deviceForm.get('status')?.value }}</span>
+                                    <span class="mat-label-small"><strong>Serial:</strong> {{ deviceForm.get('serial')?.value }}</span>
+                                    <span class="mat-label-small"><strong>Patrimonio:</strong> {{ deviceForm.get('patrim')?.value }}</span>
+                                </div>
+                                <div class="label-column qr-column">
+                                    <div class="label-qrcode">
+                                        <qr-code [value]="qrCodeValue" [size]="90"
+                                                 [errorCorrectionLevel]="'M'">
+                                        </qr-code>
+                                    </div>
+
+                                </div>
+                            </div>
+                    </mat-card-content>
+                </mat-card>
+
+            </div>
+        </div>
+        <div class="button-row">
+            <button mat-raised-button color="primary" type="submit" [disabled]="deviceForm.invalid">
+                Salvar
+            </button>
+            <button *ngIf="qrCodeValue" mat-raised-button color="accent" class="print-button" type="button"
+                    ngxPrint
+                    [useExistingCss]="true"
+                    [openNewTab]="true"
+                    [printSectionId]="'label-container'">
+                Imprimir
+                <mat-icon class="printer-icon">print</mat-icon>
+            </button>
+        </div>
+    </form>
+</div>

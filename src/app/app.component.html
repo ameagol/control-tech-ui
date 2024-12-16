@@ -1,9 +1,9 @@
 <mat-sidenav-container>
     <!-- Sidenav -->
     <mat-sidenav *ngIf="isAuthenticated" #sidenav mode="side" [opened]="true">
-        <mat-list >
+        <mat-list>
             <mat-list-item class="left-menu" *ngFor="let nav of navs">
-                <button mat-button [routerLink]="nav.route">
+                <button mat-button [routerLink]="nav.route" matTooltip="{{ nav.label }}">
                     <mat-icon>{{ nav.icon }}</mat-icon>
                 </button>
             </mat-list-item>

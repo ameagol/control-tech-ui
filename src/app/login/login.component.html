@@ -1,13 +1,10 @@
-<mat-card class="mat-elevation-z8 login-card">
-  <mat-card-header>
-    <mat-card-title>Login</mat-card-title>
-  </mat-card-header>
+<mat-card class="mat-elevation-z8 entry-card">
   <mat-card-content>
-    <form class="login-form">
+    <form class="entry-form">
       <mat-form-field appearance="outline">
-        <mat-label>Username</mat-label>
+        <mat-label>User email</mat-label>
         <input matInput [(ngModel)]="username" name="username">
-        <mat-icon matSuffix>person</mat-icon>
+        <mat-icon matSuffix>alternate_email</mat-icon>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
@@ -19,5 +16,7 @@
   <mat-card-actions>
     <button mat-raised-button color="primary" (click)="login()">Login</button>
   </mat-card-actions>
-  <span *ngIf="errorMessage">{{errorMessage}}</span>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="register()">Don't have an account?</button>
+  </mat-card-actions>
 </mat-card>

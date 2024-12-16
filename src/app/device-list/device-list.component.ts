@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Device} from "../model/device.model";
-import {DeviceListService} from "../services/device-list.service";
+import {DeviceService} from "../services/device.service";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {MatCardModule} from "@angular/material/card";
 import {MatSortModule} from "@angular/material/sort";
@@ -16,7 +16,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatSlideToggleChange, MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {DISPLAY_COLUMNS} from "../constants/device-options.constants";
+import {UIRoutes} from "../constants/device-options.constants";
 import {Router} from "@angular/router";
 
 @Component({
@@ -39,7 +39,7 @@ import {Router} from "@angular/router";
     MatSliderModule,
     MatSlideToggleModule,
     CommonModule,
-    QrCodeModule,
+    QrCodeModule
   ],
   templateUrl: './device-list.component.html',
   styleUrl: './device-list.component.scss'
@@ -48,11 +48,34 @@ export class DeviceListComponent implements OnInit {
   public devices: Device[] = [];
   public searchQuery: string = '';
   public showTable: boolean = false;
-  displayedColumns: string[] = DISPLAY_COLUMNS;
+  displayedColumns: string[] = [
+    'id',
+    'patrim',
+    'model',
+    'serial',
+    'type',
+    'status',
+    'brand',
+    'company',
+    'createdAt',
+    'cpuModel',
+    'cpuGeneration',
+    'cpuQuantity',
+    'storage',
+    'memorySize',
+    'memorySlots',
+    'memoryType',
+    'purchaseDate',
+    'purchaseValue',
+    'screenSize',
+    'channels',
+    'technology',
+    'description',
+  ];
 
   dataSource = new MatTableDataSource<Device>();
 
-  constructor(private deviceListService: DeviceListService,
+  constructor(private deviceListService: DeviceService,
               private router: Router) {}
 
   ngOnInit() {
@@ -92,7 +115,7 @@ export class DeviceListComponent implements OnInit {
   }
 
   viewDeviceDetails(serial: string) {
-    this.router.navigate(['/devices/register'], {
+    this.router.navigate([UIRoutes.DEVICE_REGISTER], {
       queryParams: { serial: serial },
     });
   }

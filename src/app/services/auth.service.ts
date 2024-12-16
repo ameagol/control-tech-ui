@@ -3,22 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, map, Observable, throwError} from 'rxjs';
 
 import { catchError } from 'rxjs/operators';
-import {LoginResponse} from "../model/login-response";
-import {LOGIN, PROD_HOST} from "../constants/device-options.constants";
+import {TokenModel} from "../model/token.model";
+import {API, PROD_HOST} from "../constants/device-options.constants";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    private apiUrl = PROD_HOST + LOGIN;
+    private apiUrl = PROD_HOST + API.LOGIN;
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.checkToken());
 
     constructor(private http: HttpClient) {}
 
-    login(username: string, password: string): Observable<LoginResponse> {
+    login(username: string, password: string): Observable<TokenModel> {
         const body = { username, password };
 
-        return this.http.post<LoginResponse>(this.apiUrl, body).pipe(
+        return this.http.post<TokenModel>(this.apiUrl, body).pipe(
             map(response => {
                 if (response?.accessToken) {
                     this.storeToken(response.accessToken);
@@ -47,6 +47,15 @@ export class AuthService {
     logout(): void {
         sessionStorage.removeItem('accessToken');
         this.isAuthenticatedSubject.next(false);
+    }
+
+    getUserEmail():string {
+        const token = sessionStorage.getItem('accessToken');
+        if(token) {
+            const decodedToken = JSON.parse(atob(token.split('.')[1]));
+            return decodedToken?.sub;
+        }
+        return 'Unknown User';
     }
 
     private getSessionItem(key: string): string | null {

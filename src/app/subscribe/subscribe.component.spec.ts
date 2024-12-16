@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeviceBIComponent } from './device-bi.component';
+import { SubscribeComponent } from './subscribe.component';
 
-describe('DeviceBIComponent', () => {
-  let component: DeviceBIComponent;
-  let fixture: ComponentFixture<DeviceBIComponent>;
+describe('RegisterComponent', () => {
+  let component: SubscribeComponent;
+  let fixture: ComponentFixture<SubscribeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DeviceBIComponent]
+      imports: [SubscribeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DeviceBIComponent);
+    fixture = TestBed.createComponent(SubscribeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

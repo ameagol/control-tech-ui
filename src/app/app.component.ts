@@ -13,7 +13,7 @@ import {AuthService} from "./services/auth.service";
 import {filter, Observable, Subscription} from "rxjs";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {LoadingService} from "./services/loading.service";
-import {NAVIGATION_MENU} from "./constants/device-options.constants";
+import {NAVIGATION_MENU, UIRoutes} from "./constants/device-options.constants";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit, OnDestroy {
           }
         }
       } else {
-        this.router.navigate(['/login']);
+        this.router.navigate([UIRoutes.LOGIN]);
       }
     });
 
@@ -85,7 +85,7 @@ export class AppComponent implements OnInit, OnDestroy {
   logout() {
     this.authService.logout();
     this.isAuthenticated = false;
-    this.router.navigate(['/login']);
+    this.router.navigate([UIRoutes.LOGIN]);
   }
 
   changeRounte(route: any) {

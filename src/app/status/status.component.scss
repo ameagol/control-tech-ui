@@ -1,0 +1,28 @@
+$dark: #3f4042;
+$light: #a0a0a8;
+
+.table-view {
+  color: $light;
+}
+
+.table-container {
+  max-width: 80%;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+
+  mat-table {
+    background-color: $dark !important;
+    table-layout: auto;
+  }
+
+  mat-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: lighten($dark, 10%);
+    }
+  }
+
+}

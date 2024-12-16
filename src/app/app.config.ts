@@ -6,6 +6,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {provideHttpClient, withFetch, withInterceptors} from "@angular/common/http";
 import {authInterceptor} from "./interceptors/auth.interceptor";
+import {provideEnvironmentNgxCurrency} from "ngx-currency";
 
 
 export const appConfig: ApplicationConfig = {
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(),
+    provideEnvironmentNgxCurrency({align: "right" }),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor]))
   ]
 };

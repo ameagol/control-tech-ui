@@ -1,16 +1,6 @@
 $dark: #3f4042;
 $light: #a0a0a8;
 
-.device-container {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  background-color: #1b1b1b;
-  max-width: 95%;
-  margin: 40px auto;
-  border-radius: 10px;
-}
-
 .search-bar {
   margin-left: 40%;
   width: 600px;
@@ -21,17 +11,43 @@ $light: #a0a0a8;
   }
 }
 
-.table-view {
+.table-view-label {
   color: $light;
-  padding: 10px;
 }
 
 .table-container {
-  padding: 0 20px;
+  max-width: 95%;
+  margin: 0 auto; /* Centers the container */
+  overflow-x: auto;
+  display: flex; /* Enables horizontal alignment */
+  justify-content: center; /* Centers the table horizontally */
 
-  table {
+  mat-table {
     background-color: $dark;
+    table-layout: auto;
+    width: 100%;
+    white-space: nowrap;
+    border-collapse: separate;
+
+    th, td {
+      padding: 10px 10px;
+    }
+
+    th:nth-child(even),
+    td:nth-child(even) {
+      background-color: #36383a;
+    }
+
+    th:nth-child(odd),
+    td:nth-child(odd) {
+      background-color: #3f4042;
+    }
   }
+}
+
+
+.mat-mdc-row .mat-mdc-cell, .mat-mdc-card-header {
+  font-size: 12px;
 }
 
 .card-container {

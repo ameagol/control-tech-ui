@@ -1,27 +1,30 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Device} from "../model/device.model";
-import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {Color, NgxChartsModule} from "@swimlane/ngx-charts";
 import {CommonModule} from "@angular/common";
-import {DeviceListService} from "../services/device-list.service";
-import {SCHEMA_CHART_COLORS} from "../constants/device-options.constants";
+import {DeviceService} from "../services/device.service";
+
+export const SCHEMA_CHART_COLORS = <Color>{
+  domain: ['#1E3A8A', '#1D4ED8', '#2563EB', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE'],
+};
 
 @Component({
   selector: 'app-device-bi',
   standalone: true,
   imports: [NgxChartsModule, CommonModule],
-  templateUrl: './device-bi.component.html',
-  styleUrl: './device-bi.component.scss',
+  templateUrl: './reports.component.html',
+  styleUrl: './reports.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class DeviceBIComponent implements OnInit {
+export class ReportsComponent implements OnInit {
   deviceList: Device[] = [];
   devicesByType: { name: string; value: number }[] = [];
   devicesByStatus: { name: string; value: number }[] = [];
-  devicesByBranch: { name: string; value: number }[] = [];
+  devicesByBrand: { name: string; value: number }[] = [];
 
-  colorScheme = SCHEMA_CHART_COLORS;
+  colorScheme: Color = SCHEMA_CHART_COLORS
 
-  constructor(private deviceListService: DeviceListService) {}
+  constructor(private deviceListService: DeviceService) {}
 
   ngOnInit(): void {
     this.loadDevices();
@@ -33,16 +36,13 @@ export class DeviceBIComponent implements OnInit {
         this.deviceList = devices;
         this.generateChartData();
       },
-      error: (err) => {
-        console.error('Error loading devices:', err);
-      },
     });
   }
 
   private generateChartData(): void {
     this.devicesByType = this.aggregateData(this.deviceList, 'type');
     this.devicesByStatus = this.aggregateData(this.deviceList, 'status');
-    this.devicesByBranch = this.aggregateData(this.deviceList, 'branch');
+    this.devicesByBrand = this.aggregateData(this.deviceList, 'brand');
   }
 
   private aggregateData(
