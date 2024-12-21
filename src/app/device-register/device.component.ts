@@ -103,14 +103,14 @@ export class DeviceComponent implements OnInit {
             try {
                 const decodedToken = JSON.parse(atob(token.split('.')[1]));
 
-                let username = decodedToken?.sub;
-                this.companyService.getCompaniesByUserId(username).subscribe({
+                let email = decodedToken?.sub;
+                this.companyService.getCompaniesByUserId(email).subscribe({
                     next: (companies: CompanyModel[]) => {
                         this.companies = companies;
                     }
                 });
 
-                this.statusService.getStatus(username).subscribe({
+                this.statusService.getStatus(email).subscribe({
                     next: (status: Status[]) => {
                         this.statusOptions = status;
                     }

@@ -51,7 +51,7 @@ export class SubscribeComponent {
               private subscribeService: SubscribeService,
               private router: Router) {
     this.registerForm = this.fb.group({
-      userName: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required],
       company: ['', [Validators.required, Validators.maxLength(30)]],
@@ -73,7 +73,7 @@ export class SubscribeComponent {
     }
 
     const subscribeData: Subscribe = {
-      userName: this.registerForm.get('userName')?.value,
+      email: this.registerForm.get('email')?.value,
       password: this.registerForm.get('password')?.value,
       company: this.registerForm.get('company')?.value,
     };

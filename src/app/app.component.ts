@@ -41,7 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private authSubscription: Subscription = new Subscription();
   private routerSubscription!: Subscription;
   loading$: Observable<boolean>;
-  username: string | null = null;
+  email: string | null = null;
   isAuthenticated: boolean = false;
   activeTabIndex = 0;
   navs = NAVIGATION_MENU;
@@ -59,7 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
         if (token) {
           try {
             const decodedToken = JSON.parse(atob(token.split('.')[1]));
-            this.username = decodedToken?.sub || 'Unknown User';
+            this.email = decodedToken?.sub || 'Unknown User';
           } catch (error) {
             console.error('Error decoding token:', error);
           }

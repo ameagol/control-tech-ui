@@ -15,8 +15,8 @@ export class AuthService {
 
     constructor(private http: HttpClient) {}
 
-    login(username: string, password: string): Observable<TokenModel> {
-        const body = { username, password };
+    login(email: string, password: string): Observable<TokenModel> {
+        const body = { email, password };
 
         return this.http.post<TokenModel>(this.apiUrl, body).pipe(
             map(response => {
