@@ -42,9 +42,9 @@
 
         <div class="form-row">
             <mat-form-field appearance="outline">
-                <mat-label>Tipo</mat-label>
-                <mat-select formControlName="type">
-                    <mat-option *ngFor="let type of typeOptions" [value]="type">{{ type }}</mat-option>
+                <mat-label>Grupo</mat-label>
+                <mat-select formControlName="deviceGroup">
+                    <mat-option *ngFor="let deviceGroup of deviceGroupOptions" [value]="deviceGroup">{{ deviceGroup }}</mat-option>
                 </mat-select>
             </mat-form-field>
 
@@ -53,6 +53,11 @@
                 <mat-select formControlName="status">
                     <mat-option *ngFor="let status of statusOptions" [value]="status.name">{{ status.name }}</mat-option>
                 </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Type</mat-label>
+                <input matInput formControlName="type" placeholder="Roteador Sem Fio"/>
             </mat-form-field>
 
             <mat-form-field>
@@ -146,6 +151,7 @@
                             <div class="label-columns">
                                 <div class="label-column">
                                     <span class="mat-label-small"><strong>Cliente:</strong> {{ deviceForm.get('client')?.value }}</span>
+                                    <span class="mat-label-small"><strong>Grupo:</strong> {{ deviceForm.get('deviceGroup')?.value }}</span>
                                     <span class="mat-label-small"><strong>Tipo:</strong> {{ deviceForm.get('type')?.value }}</span>
                                     <span class="mat-label-small"><strong>Status:</strong> {{ deviceForm.get('status')?.value }}</span>
                                     <span class="mat-label-small"><strong>Serial:</strong> {{ deviceForm.get('serial')?.value }}</span>

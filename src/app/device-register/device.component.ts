@@ -11,7 +11,7 @@ import {MatIcon} from "@angular/material/icon";
 import {
     API,
     NEW_DEVICE_SUCCESS,
-    TYPE_OPTIONS
+    DEVICE_GROUP_OPTIONS
 } from "../constants/device-options.constants";
 import {MatDialog} from "@angular/material/dialog";
 import {GlobalDialogComponent} from "../global-dialog/global-dialog.component";
@@ -54,7 +54,7 @@ import {Status} from "../model/status.model";
 })
 export class DeviceComponent implements OnInit {
     deviceForm: FormGroup;
-    typeOptions = TYPE_OPTIONS;
+    deviceGroupOptions = DEVICE_GROUP_OPTIONS;
     statusOptions: Status[] = [];
     qrCodeValue: string = '';
     device: Device | null = null;
@@ -72,6 +72,7 @@ export class DeviceComponent implements OnInit {
         this.deviceForm = this.fb.group({
             id: [],
             serial: ['', Validators.required],
+            deviceGroup: ['', Validators.required],
             type: ['', Validators.required],
             status: ['', Validators.required],
             brand: ['', Validators.required],

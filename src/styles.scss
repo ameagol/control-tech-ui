@@ -128,7 +128,7 @@ input:-internal-autofill-selected, textarea:-internal-autofill-selected {
   border: none !important;
 }
 
-// Login Card Styles
+
 .entry-card {
   width: 400px;
   padding: 20px;
@@ -138,8 +138,9 @@ input:-internal-autofill-selected, textarea:-internal-autofill-selected {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   color: $light;
 
-  mat-card-content {
-    .entry-form {
+
+  .entry-form {
+    mat-card-content {
       display: flex;
       flex-direction: column;
       gap: 15px;

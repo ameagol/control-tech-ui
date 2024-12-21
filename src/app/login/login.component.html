@@ -1,22 +1,36 @@
 <mat-card class="mat-elevation-z8 entry-card">
-  <mat-card-content>
-    <form class="entry-form">
+  <form [formGroup]="loginForm" class="entry-form">
+    <mat-card-content>
       <mat-form-field appearance="outline">
         <mat-label>User email</mat-label>
-        <input matInput [(ngModel)]="username" name="username">
+        <input matInput formControlName="email" type="email">
         <mat-icon matSuffix>alternate_email</mat-icon>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+          Email is required.
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+          Please enter a valid email address.
+        </mat-error>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
-        <input matInput type="password" [(ngModel)]="password" name="password">
+        <input matInput type="password" formControlName="password">
         <mat-icon matSuffix>key</mat-icon>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          Password is required.
+        </mat-error>
       </mat-form-field>
-    </form>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="login()">Login</button>
-  </mat-card-actions>
-  <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="register()">Don't have an account?</button>
-  </mat-card-actions>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="login()" [disabled]="loginForm.invalid">
+        Login
+      </button>
+    </mat-card-actions>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="register()">Don't have an account?</button>
+    </mat-card-actions>
+
+  </form>
 </mat-card>

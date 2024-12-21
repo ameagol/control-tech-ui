@@ -1,5 +1,5 @@
 export interface Subscribe {
-    username: string;
+    userName: string;
     password: string;
     company: string;
 }

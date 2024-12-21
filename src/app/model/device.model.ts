@@ -21,5 +21,6 @@ export interface Device {
     status: string;
     storage?: string;
     technology?: string;
+    deviceGroup: string;
     type: string;
 }

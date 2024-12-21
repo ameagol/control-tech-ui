@@ -40,7 +40,7 @@ export class ReportsComponent implements OnInit {
   }
 
   private generateChartData(): void {
-    this.devicesByType = this.aggregateData(this.deviceList, 'type');
+    this.devicesByType = this.aggregateData(this.deviceList, 'deviceGroup');
     this.devicesByStatus = this.aggregateData(this.deviceList, 'status');
     this.devicesByBrand = this.aggregateData(this.deviceList, 'brand');
   }
