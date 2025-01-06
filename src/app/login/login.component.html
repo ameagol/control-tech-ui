@@ -28,9 +28,21 @@
         Login
       </button>
     </mat-card-actions>
+
+    <!-- Google Sign-In Button -->
+    <mat-card-actions >
+      <asl-google-signin-button style="width: 100%"
+              type='standard'
+              size='medium'
+              text='signin_with'
+              shape='rectangular'
+              theme='outline'
+              logo_alignment='center'>
+      </asl-google-signin-button>
+    </mat-card-actions>
+
     <mat-card-actions>
       <button mat-raised-button color="primary" (click)="register()">Don't have an account?</button>
     </mat-card-actions>
-
   </form>
 </mat-card>

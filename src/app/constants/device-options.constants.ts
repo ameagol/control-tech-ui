@@ -51,5 +51,5 @@ export const NAVIGATION_MENU = [
     { label: 'Meus Clientes', icon: 'corporate_fare', route: '/company/create' },
     { label: 'Meus Status', icon: 'add_task', route: '/status' },
     { label: 'Graficos', icon: 'insert_chart', route: '/reports' },
-    { label: 'Admin', icon: 'admin_panel_settings', route: '/admin' },
+    // { label: 'Admin', icon: 'admin_panel_settings', route: '/admin' },
 ];
