@@ -9,6 +9,7 @@ export const DEVICE_GROUP_OPTIONS: string[] = [
     'Celular',
     'Impressora',
     'Monitor',
+    'Midia',
     'Partes'
 ];
 
