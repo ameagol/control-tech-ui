@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {DeviceListComponent} from './device-list/device-list.component';
-import {DeviceComponent} from './device-register/device.component';
+import {DeviceComponent} from './device/device.component';
 import {HomeComponent} from "./home/home.component";
-import {ReportsComponent} from "./device-bi/reports.component";
+import {ReportsComponent} from "./reports/reports.component";
 import {SubscribeComponent} from "./subscribe/subscribe.component";
-import {CompanyComponent} from "./create-company/company.component";
+import {CompanyComponent} from "./company/company.component";
 import {StatusComponent} from "./status/status.component";
 
 export const routes: Routes = [

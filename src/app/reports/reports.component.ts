@@ -9,7 +9,7 @@ export const SCHEMA_CHART_COLORS = <Color>{
 };
 
 @Component({
-  selector: 'app-device-bi',
+  selector: 'app-reports',
   standalone: true,
   imports: [NgxChartsModule, CommonModule],
   templateUrl: './reports.component.html',

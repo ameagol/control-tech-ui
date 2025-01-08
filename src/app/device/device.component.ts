@@ -9,7 +9,6 @@ import {QrCodeModule} from "ng-qrcode";
 import {MatCardModule} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
 import {
-    API,
     NEW_DEVICE_SUCCESS,
     DEVICE_GROUP_OPTIONS
 } from "../constants/device-options.constants";
@@ -27,6 +26,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {NgxCurrencyDirective} from "ngx-currency";
 import {StatusService} from "../services/status.service";
 import {Status} from "../model/status.model";
+import {environment} from "../../environments/environment";
 
 @Component({
     selector: 'app-device-subscribe',
@@ -60,6 +60,8 @@ export class DeviceComponent implements OnInit {
     device: Device | null = null;
     companies: CompanyModel[] = [];
     today: Date = new Date();
+    private uiUrl = environment.UI_HOST;
+
 
     constructor(
         private dialog: MatDialog,
@@ -133,7 +135,7 @@ export class DeviceComponent implements OnInit {
                 const company = this.companies.find(c => c.name === device.companyName) || null;
                 this.deviceForm.patchValue(device);
 
-                this.qrCodeValue = `${API.UI_HOST}/${device.serial}`;
+                this.qrCodeValue = `${this.uiUrl}/device/${device.serial}`;
             }
         });
     }
@@ -143,7 +145,7 @@ export class DeviceComponent implements OnInit {
             this.deviceService.registerDevice(this.deviceForm.value).subscribe({
                 next: (response) => {
                     this.openDialog('Success', NEW_DEVICE_SUCCESS);
-                    this.qrCodeValue = `${API.UI_HOST}/device/${this.deviceForm.value.serial}`;
+                    this.qrCodeValue = `${this.uiUrl}/device/${this.deviceForm.value.serial}`;
                 },
             });
         }

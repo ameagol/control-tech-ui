@@ -4,13 +4,14 @@ import {BehaviorSubject, map, Observable, throwError} from 'rxjs';
 
 import { catchError } from 'rxjs/operators';
 import {TokenModel} from "../model/token.model";
-import {API, PROD_HOST} from "../constants/device-options.constants";
+import {API} from "../constants/device-options.constants";
+import {environment} from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    private apiUrl = PROD_HOST + API.LOGIN;
+    private apiUrl = environment.API_HOST + API.LOGIN;
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.checkToken());
 
     constructor(private http: HttpClient) {}

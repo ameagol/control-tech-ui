@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable } from 'rxjs';
 import { Device } from "../model/device.model";
-import {API, PROD_HOST} from "../constants/device-options.constants";
+import {API} from "../constants/device-options.constants";
+import {environment} from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class DeviceService {
-    private apiUrl = PROD_HOST + API.DEVICES;
+    private apiUrl = environment.API_HOST + API.DEVICES;
 
     constructor(private http: HttpClient) {}
 

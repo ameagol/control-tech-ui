@@ -16,7 +16,7 @@ import {CompanyModel} from "../model/company.model";
 import {MatTableModule} from "@angular/material/table";
 
 @Component({
-  selector: 'app-create-company',
+  selector: 'app-company',
   standalone: true,
   imports: [
     MatCardModule,

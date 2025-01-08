@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
-import {API, PROD_HOST} from "../constants/device-options.constants";
+import {API} from "../constants/device-options.constants";
+import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Status} from "../model/status.model";
@@ -8,7 +9,7 @@ import {Status} from "../model/status.model";
     providedIn: 'root'
 })
 export class StatusService {
-    private apiUrl = PROD_HOST + API.STATUS;
+    private apiUrl = environment.API_HOST + API.STATUS;
 
     constructor(private http: HttpClient) {}
 

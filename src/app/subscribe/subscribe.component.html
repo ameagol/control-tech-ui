@@ -1,6 +1,6 @@
 <mat-card class="mat-elevation-z8 entry-card">
-    <mat-card-content *ngIf="!successMessage">
-        <form [formGroup]="registerForm" class="entry-form">
+    <form [formGroup]="registerForm" class="entry-form">
+        <mat-card-content *ngIf="!successMessage">
             <mat-form-field appearance="outline">
                 <mat-label>User email</mat-label>
                 <input matInput formControlName="email" type="email">
@@ -45,8 +45,8 @@
                     Company Name must not exceed 30 characters.
                 </mat-error>
             </mat-form-field>
-        </form>
-    </mat-card-content>
+        </mat-card-content>
+    </form>
     <mat-card-actions *ngIf="!successMessage">
         <button mat-raised-button color="primary" (click)="register()" [disabled]="registerForm.invalid">
             Create Account

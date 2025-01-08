@@ -16,7 +16,7 @@ import {Status} from "../model/status.model";
 import {StatusService} from "../services/status.service";
 
 @Component({
-  selector: 'app-create-company',
+  selector: 'app-company',
   standalone: true,
   imports: [
     MatCardModule,

@@ -2,13 +2,14 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {CompanyModel} from "../model/company.model";
-import {API, PROD_HOST} from "../constants/device-options.constants";
+import {API} from "../constants/device-options.constants";
+import {environment} from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CompanyService {
-    private apiUrl = PROD_HOST + API.COMPANIES;
+    private apiUrl = environment.API_HOST + API.COMPANIES;
 
     constructor(private http: HttpClient) {}
 

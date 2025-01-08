@@ -15,8 +15,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {AuthService} from "../services/auth.service";
 import {CommonModule} from "@angular/common";
 import {UIRoutes} from "../constants/device-options.constants";
-import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
-import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 
 @Component({
     selector: 'app-login',
@@ -39,30 +37,21 @@ import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
         FormsModule,
         MatError,
         CommonModule,
-      ReactiveFormsModule,
-        GoogleSigninButtonModule
+        ReactiveFormsModule
     ],
     standalone: true
 })
-export class LoginComponent implements OnInit {
-    user: SocialUser | undefined;
+export class LoginComponent {
     loginForm: FormGroup;
 
     constructor(
         private fb: FormBuilder,
         private router: Router,
-        private authService: AuthService,
-        private googleAuthService: SocialAuthService
+        private authService: AuthService
     ) {
         this.loginForm = this.fb.group({
             email: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required],
-        });
-    }
-
-    ngOnInit() {
-        this.googleAuthService.authState.subscribe((user) => {
-            console.log(user);
         });
     }
 

@@ -19,14 +19,7 @@ export const DEVICE_GROUP_OPTIONS: string[] = [
 export const NEW_DEVICE_SUCCESS: string = 'Device has been registered successfully';
 export const NEW_DEVICE_ERROR: string = 'Error registering device. Please try again.';
 
-/**
- * Routes for BackEnd Interface
- */
-export const PROD_HOST = 'https://control-tech-api-production.up.railway.app/';
-// export const PROD_HOST = 'http://localhost:8080/';
 export enum API {
-    UI_HOST = 'https://control-tech-ui.vercel.app/',
-    // UI_HOST = 'http://localhost:4200/',
     DEVICES = 'api/devices',
     LOGIN = 'api/auth/login',
     NEW_SUBSCRIBE = 'api/subscribe',
