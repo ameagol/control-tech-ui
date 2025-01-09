@@ -17,7 +17,7 @@ export class DeviceService {
     public findByUserEmail(): Observable<Device[]> {
     const email = this.authService.getUserEmail(); // Get the logged-in user's email
     const params = new HttpParams().set('email', email); // Set email query param
-    return this.http.get<Device[]>(this.apiUrl, { params });
+    return this.http.get<Device[]>(`${this.apiUrl}/by-user-email`, { params });
 }
 
     public getDeviceBySerial(serial: string): Observable<Device> {
