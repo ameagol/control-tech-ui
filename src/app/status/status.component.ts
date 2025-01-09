@@ -31,7 +31,7 @@ import {StatusService} from "../services/status.service";
     CommonModule,
     ReactiveFormsModule,
     MatDividerModule,
-    MatTableModule
+    MatTableModule,
   ],
   templateUrl: './status.component.html',
   styleUrl: './status.component.scss'

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable } from 'rxjs';
 import { Device } from "../model/device.model";
 import {API} from "../constants/device-options.constants";
 import {environment} from "../../environments/environment";
+import {AuthService} from "./auth.service";
 
 @Injectable({
     providedIn: 'root'
@@ -11,11 +12,13 @@ import {environment} from "../../environments/environment";
 export class DeviceService {
     private apiUrl = environment.API_HOST + API.DEVICES;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private authService: AuthService) {}
 
-    public findAll(): Observable<Device[]> {
-        return this.http.get<Device[]>(this.apiUrl);
-    }
+    public findByUserEmail(): Observable<Device[]> {
+    const email = this.authService.getUserEmail(); // Get the logged-in user's email
+    const params = new HttpParams().set('email', email); // Set email query param
+    return this.http.get<Device[]>(this.apiUrl, { params });
+}
 
     public getDeviceBySerial(serial: string): Observable<Device> {
         return this.http.get<Device>(`${this.apiUrl}/serial/${serial}`);

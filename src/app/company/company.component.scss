@@ -1,6 +1,10 @@
 $dark: #3f4042;
 $light: #a0a0a8;
 
+.mat-mdc-card-content:last-child {
+  padding-bottom: 0;
+}
+
 .table-view {
   color: $light;
 }

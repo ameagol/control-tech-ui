@@ -2,14 +2,8 @@
 <mat-divider class="divider"></mat-divider>
 
 <mat-card class="mat-elevation-z8 entry-card">
-    <mat-card-content>
-        <form [formGroup]="registerForm" class="entry-form">
-            <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput type="email" [value]="email" [disabled]="true">
-                <mat-icon matSuffix>alternate_email</mat-icon>
-            </mat-form-field>
-
+    <form [formGroup]="registerForm" class="entry-form">
+        <mat-card-content>
             <mat-form-field appearance="outline">
                 <mat-label>Cliente</mat-label>
                 <input matInput formControlName="name">
@@ -21,8 +15,8 @@
                     Company Name must not exceed 30 characters.
                 </mat-error>
             </mat-form-field>
-        </form>
-    </mat-card-content>
+        </mat-card-content>
+    </form>
     <mat-card-actions>
         <button mat-raised-button color="primary" (click)="save()" [disabled]="registerForm.invalid">
             Salvar
@@ -31,19 +25,21 @@
 </mat-card>
 
 <div class="table-container">
-    <mat-table [dataSource]="myCompanies" class="mat-elevation-z8">
+    <mat-table [dataSource]="myCompanies">
         <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef> Cliente ID </mat-header-cell>
-            <mat-cell *matCellDef="let company"> {{ company.id }} <mat-icon matSuffix>edit_note</mat-icon></mat-cell>
+            <mat-header-cell *matHeaderCellDef> Cliente ID</mat-header-cell>
+            <mat-cell *matCellDef="let company"> {{ company.id }}
+                <mat-icon matSuffix>edit_note</mat-icon>
+            </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Cliente </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Cliente</mat-header-cell>
             <mat-cell *matCellDef="let company"> {{ company.name }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Email</mat-header-cell>
             <mat-cell *matCellDef="let company"> {{ company.user.email }} </mat-cell>
         </ng-container>
 

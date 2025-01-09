@@ -2,14 +2,8 @@
 <mat-divider class="divider"></mat-divider>
 
 <mat-card class="mat-elevation-z8 entry-card">
-    <mat-card-content>
-        <form [formGroup]="registerForm" class="entry-form">
-            <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput type="email" [value]="email" [disabled]="true">
-                <mat-icon matSuffix>alternate_email</mat-icon>
-            </mat-form-field>
-
+    <form [formGroup]="registerForm" class="entry-form">
+        <mat-card-content>
             <mat-form-field appearance="outline">
                 <mat-label>Status</mat-label>
                 <input matInput formControlName="name">
@@ -21,8 +15,8 @@
                     Status Name must not exceed 30 characters.
                 </mat-error>
             </mat-form-field>
-        </form>
-    </mat-card-content>
+        </mat-card-content>
+    </form>
     <mat-card-actions>
         <button mat-raised-button color="primary" (click)="save()" [disabled]="registerForm.invalid">
             Salvar
@@ -31,20 +25,23 @@
 </mat-card>
 
 <div class="table-container">
-    <mat-table [dataSource]="allStatus" class="mat-elevation-z8">
+    <mat-table [dataSource]="allStatus">
         <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef> Status ID </mat-header-cell>
-            <mat-cell *matCellDef="let status"> {{ status.id }} <mat-icon matSuffix>edit_note</mat-icon></mat-cell>
+            <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+            <mat-cell *matCellDef="let status"> {{ status.id }}
+            </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Status</mat-header-cell>
             <mat-cell *matCellDef="let status"> {{ status.name }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-            <mat-cell *matCellDef="let status"> {{ status.user.email }} </mat-cell>
+            <mat-header-cell *matHeaderCellDef> Editar</mat-header-cell>
+            <mat-cell *matCellDef="let status">
+                <mat-icon matSuffix>edit_note</mat-icon>
+            </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="['id', 'name', 'email']"></mat-header-row>

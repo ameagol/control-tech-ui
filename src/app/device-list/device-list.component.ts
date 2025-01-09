@@ -83,7 +83,7 @@ export class DeviceListComponent implements OnInit {
   }
 
   fetchDevices(): void {
-    this.deviceListService.findAll().subscribe(data => {
+    this.deviceListService.findByUserEmail().subscribe(data => {
       if (data) {
         this.devices = data;
       }

@@ -53,8 +53,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
                     break;
 
                 case 403: // Forbidden
+                    authService.logout();
                     title = 'Access Denied';
                     message = error.error?.message || 'You do not have permission to perform this action.';
+                    router.navigate([UIRoutes.LOGIN]);
                     break;
 
                 case 404: // Not Found

@@ -31,7 +31,7 @@ export class ReportsComponent implements OnInit {
   }
 
   private loadDevices(): void {
-    this.deviceListService.findAll().subscribe({
+    this.deviceListService.findByUserEmail().subscribe({
       next: (devices) => {
         this.deviceList = devices;
         this.generateChartData();

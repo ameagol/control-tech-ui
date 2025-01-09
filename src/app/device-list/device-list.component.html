@@ -32,7 +32,9 @@
             <mat-card-title>{{ device.model }}</mat-card-title>
             <mat-card-content>
                 <p><strong>Serial: {{ device.serial }}</strong></p>
-                <p>Status: {{ device.status }} <br /> Type: {{ device.type}}</p>
+                <p>Type: {{ device.type }}</p>
+                <p>Cliente:{{ (device.companyName.length>20)? (device.companyName | slice:0:20)+'...':(device.companyName) }}</p>
+                <p>Status: {{ device.status }}</p>
             </mat-card-content>
 
             <!-- Action Buttons -->
