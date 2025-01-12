@@ -51,37 +51,38 @@ export class AuthService {
     }
 
     getUserEmail(): string {
-        const token = sessionStorage.getItem('accessToken');
-        if(token) {
-            const decodedToken = this.decodeToken(token);
-            return decodedToken?.sub;
-        }
-        return 'Unknown User';
+        const decodedToken = this.getDecodedToken();
+        return decodedToken?.sub || 'Unknown User';
     }
 
     private getSessionItem(key: string): string | null {
-        return typeof window !== 'undefined' ? sessionStorage.getItem(key) : null;
+        return typeof window !== 'undefined' ? sessionStorage.getItem('accessToken') : null;
     }
 
     private checkToken(): boolean {
+        const decodedToken = this.getDecodedToken();
+        const currentTime = Math.floor(Date.now() / 1000);
+
+        return decodedToken
+            ? (decodedToken.exp > currentTime ? true : (this.logout(), false))
+            : (this.logout(), false);
+    }
+
+    private getDecodedToken(): any {
         const token = this.getSessionItem('accessToken');
-        if (token) {
-            try {
-                const decodedToken = this.decodeToken(token);
-                const currentTime = Math.floor(Date.now() / 1000);
-                return decodedToken?.exp > currentTime;
-            } catch {
-                this.logout();
-            }
+        return token ? this.safeDecodeToken(token) : null;
+    }
+
+    private safeDecodeToken(token: string): any {
+        try {
+            return this.decodeToken(token);
+        } catch {
+            this.logout();
+            return null;
         }
-        return false;
     }
 
     private decodeToken(token: string): any {
-        try {
-            return JSON.parse(atob(token.split('.')[1]));
-        } catch (error) {
-            this.logout();
-        }
+        return JSON.parse(atob(token.split('.')[1]));
     }
 }
