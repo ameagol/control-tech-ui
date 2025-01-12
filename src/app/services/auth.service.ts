@@ -50,10 +50,10 @@ export class AuthService {
         this.isAuthenticatedSubject.next(false);
     }
 
-    getUserEmail():string {
+    getUserEmail(): string {
         const token = sessionStorage.getItem('accessToken');
         if(token) {
-            const decodedToken = JSON.parse(atob(token.split('.')[1]));
+            const decodedToken = this.decodeToken(token);
             return decodedToken?.sub;
         }
         return 'Unknown User';
@@ -71,7 +71,7 @@ export class AuthService {
                 const currentTime = Math.floor(Date.now() / 1000);
                 return decodedToken?.exp > currentTime;
             } catch {
-                return false;
+                this.logout();
             }
         }
         return false;
@@ -81,7 +81,7 @@ export class AuthService {
         try {
             return JSON.parse(atob(token.split('.')[1]));
         } catch (error) {
-            return null;
+            this.logout();
         }
     }
 }

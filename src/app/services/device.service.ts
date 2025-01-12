@@ -15,8 +15,8 @@ export class DeviceService {
     constructor(private http: HttpClient, private authService: AuthService) {}
 
     public findByUserEmail(): Observable<Device[]> {
-    const email = this.authService.getUserEmail(); // Get the logged-in user's email
-    const params = new HttpParams().set('email', email); // Set email query param
+    const email = this.authService.getUserEmail();
+    const params = new HttpParams().set('email', email);
     return this.http.get<Device[]>(`${this.apiUrl}/by-user-email`, { params });
 }
 
@@ -28,7 +28,7 @@ export class DeviceService {
         return this.http.post<Device[]>(`${this.apiUrl}/search`, { search: query });
     }
 
-    registerDevice(device: Device): Observable<any> {
-        return this.http.post(`${this.apiUrl}`, device);
+    registerDevice(device: Device): Observable<Device> {
+        return this.http.post<Device>(`${this.apiUrl}`, device);
     }
 }
