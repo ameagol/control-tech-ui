@@ -27,6 +27,7 @@ import {NgxCurrencyDirective} from "ngx-currency";
 import {StatusService} from "../services/status.service";
 import {Status} from "../model/status.model";
 import {environment} from "../../environments/environment";
+import {AuthService} from "../services/auth.service";
 
 @Component({
     selector: 'app-device-subscribe',
@@ -62,15 +63,15 @@ export class DeviceComponent implements OnInit {
     today: Date = new Date();
     private uiUrl = environment.UI_HOST;
 
-
     constructor(
         private dialog: MatDialog,
         private fb: FormBuilder,
         private deviceService: DeviceService,
         private route: ActivatedRoute,
         private companyService: CompanyService,
-        private statusService: StatusService) {
-
+        private statusService: StatusService,
+        private authService: AuthService
+    ) {
         this.deviceForm = this.fb.group({
             id: [],
             serial: ['', Validators.required],
@@ -100,60 +101,64 @@ export class DeviceComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const token = sessionStorage.getItem('accessToken');
-        if (token) {
-            try {
-                const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        const email = this.authService.getUserEmail();
 
-                let email = decodedToken?.sub;
-                this.companyService.getCompaniesByUserId(email).subscribe({
-                    next: (companies: CompanyModel[]) => {
-                        this.companies = companies;
-                    }
-                });
+        if (email) {
+            this.loadUserData(email);
+        }
 
-                this.statusService.getStatus(email).subscribe({
-                    next: (status: Status[]) => {
-                        this.statusOptions = status;
-                    }
-                })
-
-                const serial = this.route.snapshot.queryParamMap.get('serial');
-                if (serial) {
-                    this.loadDevice(serial);
-                }
-            } catch (error) {
-                console.error('Error decoding token:');
-            }
+        const serial = this.route.snapshot.queryParamMap.get('serial');
+        if (serial) {
+            this.loadDevice(serial);
         }
     }
 
-    loadDevice(serial: string) {
-        this.deviceService.getDeviceBySerial(serial).subscribe({
-            next: (device: Device) => {
+    private loadUserData(email: string): void {
 
-                const company = this.companies.find(c => c.name === device.companyName) || null;
-                this.deviceForm.patchValue(device);
+        this.companyService.getCompaniesByUserId(email).subscribe({
+            next: (companies: CompanyModel[]) => {
+                this.companies = companies;
+            },
+            // error: (err) => console.error('Error fetching companies:', err)
+        });
 
-                this.qrCodeValue = `${this.uiUrl}/device/${device.serial}`;
-            }
+        this.statusService.getStatus(email).subscribe({
+            next: (status: Status[]) => {
+                this.statusOptions = status;
+            },
+            // error: (err) => console.error('Error fetching status:', err)
         });
     }
 
-    onSubmit() {
+    loadDevice(serial: string): void {
+        this.deviceService.getDeviceBySerial(serial).subscribe({
+            next: (device: Device) => {
+                const company = this.companies.find(c => c.name === device.companyName) || null;
+                this.deviceForm.patchValue({
+                    ...device,
+                    company: company
+                });
+                this.qrCodeValue = `${this.uiUrl}/device/${device.serial}`;
+            },
+            // error: (err) => console.error('Error fetching device:', err)
+        });
+    }
+
+    onSubmit(): void {
         if (this.deviceForm.valid) {
             this.deviceService.registerDevice(this.deviceForm.value).subscribe({
                 next: (response) => {
                     this.openDialog('Success', NEW_DEVICE_SUCCESS);
                     this.qrCodeValue = `${this.uiUrl}/device/${this.deviceForm.value.serial}`;
                 },
+                // error: (err) => console.error('Error registering device:', err)
             });
         }
     }
 
     openDialog(title: string, message: string): void {
         this.dialog.open(GlobalDialogComponent, {
-            data: {title, message}
+            data: { title, message }
         });
     }
 }

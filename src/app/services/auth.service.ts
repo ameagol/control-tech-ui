@@ -12,9 +12,11 @@ import {environment} from "../../environments/environment";
 })
 export class AuthService {
     private apiUrl = environment.API_HOST + API.LOGIN;
-    private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.checkToken());
+    private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+        this.initializeAuthenticationState();
+    }
 
     login(email: string, password: string): Observable<TokenModel> {
         const body = { email, password };
@@ -23,6 +25,7 @@ export class AuthService {
             map(response => {
                 if (response?.accessToken) {
                     this.storeToken(response.accessToken);
+                    this.isAuthenticatedSubject.next(true); // Set authentication state
                 }
                 return response;
             }),
@@ -34,7 +37,6 @@ export class AuthService {
 
     storeToken(token: string): void {
         sessionStorage.setItem('accessToken', token);
-        this.isAuthenticatedSubject.next(true);
     }
 
     getToken(): string | null {
@@ -51,38 +53,55 @@ export class AuthService {
     }
 
     getUserEmail(): string {
-        const decodedToken = this.getDecodedToken();
-        return decodedToken?.sub || 'Unknown User';
+        return this.safeExecute(() => {
+            const token = this.getToken();
+            if (!token) throw new Error('Token not found');
+            const decodedToken = this.decodeToken(token);
+            return decodedToken?.sub || 'Unknown User';
+        }, 'Unknown User');
     }
 
     private getSessionItem(key: string): string | null {
-        return typeof window !== 'undefined' ? sessionStorage.getItem('accessToken') : null;
+        return typeof window !== 'undefined' ? sessionStorage.getItem(key) : null;
     }
 
     private checkToken(): boolean {
-        const decodedToken = this.getDecodedToken();
-        const currentTime = Math.floor(Date.now() / 1000);
-
-        return decodedToken
-            ? (decodedToken.exp > currentTime ? true : (this.logout(), false))
-            : (this.logout(), false);
-    }
-
-    private getDecodedToken(): any {
-        const token = this.getSessionItem('accessToken');
-        return token ? this.safeDecodeToken(token) : null;
-    }
-
-    private safeDecodeToken(token: string): any {
-        try {
-            return this.decodeToken(token);
-        } catch {
-            this.logout();
-            return null;
-        }
+        return this.safeExecute(() => {
+            const token = this.getToken();
+            if (!token) return false;
+            const decodedToken = this.decodeToken(token);
+            const currentTime = Math.floor(Date.now() / 1000);
+            return decodedToken?.exp > currentTime; // Return token validity
+        }, false);
     }
 
     private decodeToken(token: string): any {
-        return JSON.parse(atob(token.split('.')[1]));
+        const parts = token.split('.');
+        if (parts.length !== 3) throw new Error('Invalid token structure');
+        return JSON.parse(atob(parts[1]));
+    }
+
+    /**
+     * Centralized safe execution with error handling and logout on failure.
+     * @param callback The function to execute safely.
+     * @param defaultValue The default value to return in case of an error.
+     * @returns The result of the callback or the default value on error.
+     */
+    private safeExecute<T>(callback: () => T, defaultValue: T = null as any): T {
+        try {
+            return callback();
+        } catch (error) {
+            this.logout();
+            return defaultValue;
+        }
+    }
+
+    /**
+     * Initialize authentication state on service construction.
+     */
+    private initializeAuthenticationState(): void {
+        const isAuthenticated = this.checkToken();
+        this.isAuthenticatedSubject.next(isAuthenticated);
     }
 }
+
