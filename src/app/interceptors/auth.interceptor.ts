@@ -35,9 +35,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             let message;
 
             switch (error.status) {
-                case 0: // Network or CORS error
+                case 0:
+                    authService.logout();
                     title = 'Network Error';
                     message = 'Unable to connect to the server. Please check your internet connection.';
+                    router.navigate([UIRoutes.LOGIN]);
                     break;
 
                 case 400: // Bad Request
@@ -53,10 +55,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
                     break;
 
                 case 403: // Forbidden
-                    authService.logout();
                     title = 'Access Denied';
                     message = error.error?.message || 'You do not have permission to perform this action.';
-                    router.navigate([UIRoutes.LOGIN]);
                     break;
 
                 case 404: // Not Found
@@ -80,7 +80,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
                     break;
 
                 default: // Other errors
-                    title = 'Service Unavailable';
+                    title = 'Unknown Error';
                     message = 'The service is temporarily unavailable. Please try again later.';
             }
 

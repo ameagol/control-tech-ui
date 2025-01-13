@@ -37,10 +37,12 @@
                 <p>Status: {{ device.status }}</p>
             </mat-card-content>
 
-            <!-- Action Buttons -->
             <mat-card-actions>
                 <button mat-button (click)="viewDeviceDetails(device.serial)">Editar</button>
-                <button mat-button color="primary">QR Code</button>
+                <button mat-button (click)="shareDevice(device.serial)">
+                    ENVIAR
+                    <mat-icon>ios_share</mat-icon>
+                </button>
             </mat-card-actions>
         </mat-card>
     </div>

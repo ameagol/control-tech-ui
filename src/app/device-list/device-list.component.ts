@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Device} from "../model/device.model";
 import {DeviceService} from "../services/device.service";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
@@ -18,6 +18,8 @@ import {MatSliderModule} from "@angular/material/slider";
 import {MatSlideToggleChange, MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {UIRoutes} from "../constants/device-options.constants";
 import {Router} from "@angular/router";
+import {MatSnackBar, MatSnackBarAction, MatSnackBarActions, MatSnackBarLabel} from "@angular/material/snack-bar";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-device-list',
@@ -39,7 +41,10 @@ import {Router} from "@angular/router";
     MatSliderModule,
     MatSlideToggleModule,
     CommonModule,
-    QrCodeModule
+    QrCodeModule,
+    MatSnackBarLabel,
+    MatSnackBarActions,
+    MatSnackBarAction
   ],
   templateUrl: './device-list.component.html',
   styleUrl: './device-list.component.scss'
@@ -74,6 +79,10 @@ export class DeviceListComponent implements OnInit {
   ];
 
   dataSource = new MatTableDataSource<Device>();
+  private _snackBar = inject(MatSnackBar);
+  private uiUrl = environment.UI_HOST;
+
+  durationInSeconds = 5;
 
   constructor(private deviceListService: DeviceService,
               private router: Router) {}
@@ -118,6 +127,14 @@ export class DeviceListComponent implements OnInit {
     this.router.navigate([UIRoutes.DEVICE_REGISTER], {
       queryParams: { serial: serial },
     });
+  }
+
+  shareDevice(serial: string) {
+    navigator.clipboard.writeText(`${this.uiUrl}device/${serial}`).then(
+        () => {
+          this._snackBar.open('Link copied to clipboard:', `${this.uiUrl}device/${serial}`);
+        },
+    );
   }
 }
 
