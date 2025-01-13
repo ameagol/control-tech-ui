@@ -102,7 +102,6 @@ export class DeviceComponent implements OnInit {
 
     ngOnInit(): void {
         const email = this.authService.getUserEmail();
-
         if (email) {
             this.loadUserData(email);
         }
@@ -114,33 +113,34 @@ export class DeviceComponent implements OnInit {
     }
 
     private loadUserData(email: string): void {
-
         this.companyService.getCompaniesByUserId(email).subscribe({
             next: (companies: CompanyModel[]) => {
                 this.companies = companies;
             },
-            // error: (err) => console.error('Error fetching companies:', err)
         });
 
         this.statusService.getStatus(email).subscribe({
             next: (status: Status[]) => {
                 this.statusOptions = status;
             },
-            // error: (err) => console.error('Error fetching status:', err)
         });
     }
 
     loadDevice(serial: string): void {
         this.deviceService.getDeviceBySerial(serial).subscribe({
             next: (device: Device) => {
-                const company = this.companies.find(c => c.name === device.companyName) || null;
-                this.deviceForm.patchValue({
-                    ...device,
-                    company: company
-                });
-                this.qrCodeValue = `${this.uiUrl}/device/${device.serial}`;
+                const interval = setInterval(() => {
+                    if (this.companies.length > 0) {
+                        clearInterval(interval);
+                        const company = this.companies.find(c => c.name === device.companyName) || null;
+                        this.deviceForm.patchValue({
+                            ...device,
+                            company: company
+                        });
+                        this.qrCodeValue = `${this.uiUrl}/devices/register?serial=${device.serial}`;
+                    }
+                }, 100);
             },
-            // error: (err) => console.error('Error fetching device:', err)
         });
     }
 
@@ -149,9 +149,8 @@ export class DeviceComponent implements OnInit {
             this.deviceService.registerDevice(this.deviceForm.value).subscribe({
                 next: (response) => {
                     this.openDialog('Success', NEW_DEVICE_SUCCESS);
-                    this.qrCodeValue = `${this.uiUrl}/device/${this.deviceForm.value.serial}`;
+                    this.qrCodeValue =  `${this.uiUrl}/devices/register?serial=${response.serial}`;
                 },
-                // error: (err) => console.error('Error registering device:', err)
             });
         }
     }

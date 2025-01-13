@@ -17,11 +17,11 @@ export class CompanyService {
         return this.http.get<CompanyModel[]>(`${this.apiUrl}/user/${user_id}`);
     }
 
-    createCompany(company: CompanyModel): Observable<any> {
+    createCompany(company: CompanyModel): Observable<CompanyModel> {
         return this.http.post<CompanyModel>(`${this.apiUrl}`, company);
     }
 
-    updateCompany(company: CompanyModel): Observable<any> {
+    updateCompany(company: CompanyModel): Observable<CompanyModel> {
         return this.http.put<CompanyModel>(`${this.apiUrl}/${company.id}`, company);
     }
 }
