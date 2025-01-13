@@ -130,9 +130,10 @@ export class DeviceListComponent implements OnInit {
   }
 
   shareDevice(serial: string) {
-    navigator.clipboard.writeText(`${this.uiUrl}device/${serial}`).then(
+    const deviceUrl = `${this.uiUrl}device/register?serial=${serial}`;
+    navigator.clipboard.writeText(deviceUrl).then(
         () => {
-          this._snackBar.open('Link copied to clipboard:', `${this.uiUrl}device/${serial}`);
+          this._snackBar.open('Link copied to clipboard:', deviceUrl);
         },
     );
   }
