@@ -54,7 +54,6 @@ export class DeviceListComponent implements OnInit {
   public searchQuery: string = '';
   public showTable: boolean = false;
   displayedColumns: string[] = [
-    'id',
     'patrim',
     'model',
     'serial',
@@ -81,8 +80,6 @@ export class DeviceListComponent implements OnInit {
   dataSource = new MatTableDataSource<Device>();
   private _snackBar = inject(MatSnackBar);
   private uiUrl = environment.UI_HOST;
-
-  durationInSeconds = 5;
 
   constructor(private deviceListService: DeviceService,
               private router: Router) {}
@@ -133,7 +130,9 @@ export class DeviceListComponent implements OnInit {
     const deviceUrl = `${this.uiUrl}devices/register?serial=${serial}`;
     navigator.clipboard.writeText(deviceUrl).then(
         () => {
-          this._snackBar.open('Link copied to clipboard:', deviceUrl);
+          this._snackBar.open('Link copied to clipboard:', deviceUrl, {
+            duration: 2000
+          });
         },
     );
   }

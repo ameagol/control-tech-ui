@@ -48,13 +48,6 @@
     </div>
     <div class="table-container" *ngIf="showTable">
         <mat-table matSort [dataSource]="devices" class="mat-elevation-z8">
-
-            <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>ID</th>
-                <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-            </ng-container>
-
-            <!-- Group Column -->
             <ng-container matColumnDef="deviceGroup">
                 <th mat-header-cell *matHeaderCellDef>Grupo</th>
                 <td mat-cell *matCellDef="let element">{{ element.deviceGroup }}</td>
@@ -95,25 +88,21 @@
                 <td mat-cell *matCellDef="let element">{{ element.createdAt | date }}</td>
             </ng-container>
 
-            <!-- CpuCount Column -->
             <ng-container matColumnDef="cpuCount">
                 <th mat-header-cell *matHeaderCellDef>CPU</th>
                 <td mat-cell *matCellDef="let element">{{ element.cpuCount }}</td>
             </ng-container>
 
-            <!-- Description Column -->
             <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef>Descrição</th>
                 <td mat-cell *matCellDef="let element">{{ element.description }}</td>
             </ng-container>
 
-            <!-- Function Column -->
             <ng-container matColumnDef="function">
                 <th mat-header-cell *matHeaderCellDef>Função</th>
                 <td mat-cell *matCellDef="let element">{{ element.function }}</td>
             </ng-container>
 
-            <!-- MemorySize Column -->
             <ng-container matColumnDef="memorySize">
                 <th mat-header-cell *matHeaderCellDef>Memoria</th>
                 <td mat-cell *matCellDef="let element">{{ element.memorySize }}</td>
@@ -159,25 +148,21 @@
                 <td mat-cell *matCellDef="let element">{{ element.purchaseValue }}0 R$</td>
             </ng-container>>
 
-            <!-- ScreenSize Column -->
             <ng-container matColumnDef="screenSize">
                 <th mat-header-cell *matHeaderCellDef>Tamanho da Tela</th>
                 <td mat-cell *matCellDef="let element">{{ element.screenSize }}</td>
             </ng-container>
 
-            <!-- Serial Column -->
             <ng-container matColumnDef="serial">
                 <th mat-header-cell *matHeaderCellDef>Serial</th>
                 <td mat-cell *matCellDef="let element">{{ element.serial }}</td>
             </ng-container>
 
-            <!-- Storage Column -->
             <ng-container matColumnDef="storage">
                 <th mat-header-cell *matHeaderCellDef>Armazenamento</th>
                 <td mat-cell *matCellDef="let element">{{ element.storage }}</td>
             </ng-container>
 
-            <!-- Technology Column -->
             <ng-container matColumnDef="technology">
                 <th mat-header-cell *matHeaderCellDef>Tecnologia</th>
                 <td mat-cell *matCellDef="let element">{{ element.technology }}</td>

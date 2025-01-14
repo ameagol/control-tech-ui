@@ -54,6 +54,8 @@ import {AuthService} from "../services/auth.service";
     styleUrl: './device.component.scss',
 })
 export class DeviceComponent implements OnInit {
+
+    private uiUrl = environment.UI_HOST;
     deviceForm: FormGroup;
     deviceGroupOptions = DEVICE_GROUP_OPTIONS;
     statusOptions: Status[] = [];
@@ -61,7 +63,6 @@ export class DeviceComponent implements OnInit {
     device: Device | null = null;
     companies: CompanyModel[] = [];
     today: Date = new Date();
-    private uiUrl = environment.UI_HOST;
 
     constructor(
         private dialog: MatDialog,
