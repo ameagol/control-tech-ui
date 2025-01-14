@@ -27,9 +27,8 @@
 <div class="table-container">
     <mat-table [dataSource]="myCompanies">
         <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef> Cliente ID</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
             <mat-cell *matCellDef="let company"> {{ company.id }}
-                <mat-icon matSuffix>edit_note</mat-icon>
             </mat-cell>
         </ng-container>
 
@@ -39,8 +38,15 @@
         </ng-container>
 
         <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef> Email</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Responsável</mat-header-cell>
             <mat-cell *matCellDef="let company"> {{ company.user.email }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef> Editar</mat-header-cell>
+            <mat-cell *matCellDef="let company">
+                <mat-icon matSuffix>edit_note</mat-icon>
+            </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="['id', 'name', 'email']"></mat-header-row>
