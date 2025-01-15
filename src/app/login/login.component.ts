@@ -55,21 +55,21 @@ export class LoginComponent {
         });
     }
 
-  login(): void {
-    if (this.loginForm.invalid) {
-      return;
+    login(): void {
+        if (this.loginForm.invalid) {
+            return;
+        }
+
+        const {email, password} = this.loginForm.value;
+        this.authService.login(email, password).subscribe(
+            response => {
+                this.authService.storeToken(response.accessToken);
+                this.router.navigate([UIRoutes.HOME]);
+            },
+        );
     }
 
-    const { email, password } = this.loginForm.value;
-    this.authService.login(email, password).subscribe(
-        response => {
-          this.authService.storeToken(response.accessToken);
-          this.router.navigate([UIRoutes.HOME]);
-        },
-    );
-  }
-
     register() {
-      this.router.navigate([UIRoutes.SUBSCRIBE]);
+        this.router.navigate([UIRoutes.SUBSCRIBE]);
     }
 }

@@ -1,12 +1,13 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-global-dialog',
   standalone: true,
   imports: [
-    MatButtonModule,MatDialogContent, MatDialogTitle
+    MatButtonModule,MatDialogContent, MatDialogTitle,
+      MatDialogActions
   ],
   templateUrl: './global-dialog.component.html',
   styleUrl: './global-dialog.component.scss'

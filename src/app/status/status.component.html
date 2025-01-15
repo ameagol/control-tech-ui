@@ -26,9 +26,11 @@
 
 <div class="table-container">
     <mat-table [dataSource]="allStatus">
+
         <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-            <mat-cell *matCellDef="let status"> {{ status.id }}
+            <mat-header-cell *matHeaderCellDef> Editar</mat-header-cell>
+            <mat-cell *matCellDef="let status">
+                <mat-icon matSuffix>edit_note</mat-icon>
             </mat-cell>
         </ng-container>
 
@@ -38,9 +40,8 @@
         </ng-container>
 
         <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef> Editar</mat-header-cell>
-            <mat-cell *matCellDef="let status">
-                <mat-icon matSuffix>edit_note</mat-icon>
+            <mat-header-cell *matHeaderCellDef>Responsavel</mat-header-cell>
+            <mat-cell *matCellDef="let status"> {{ status.user.email }}
             </mat-cell>
         </ng-container>
 

@@ -5,59 +5,60 @@ import {CommonModule} from "@angular/common";
 import {DeviceService} from "../services/device.service";
 
 export const SCHEMA_CHART_COLORS = <Color>{
-  domain: ['#1E3A8A', '#1D4ED8', '#2563EB', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE'],
+    domain: ['#1E3A8A', '#1D4ED8', '#2563EB', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE'],
 };
 
 @Component({
-  selector: 'app-reports',
-  standalone: true,
-  imports: [NgxChartsModule, CommonModule],
-  templateUrl: './reports.component.html',
-  styleUrl: './reports.component.scss',
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-reports',
+    standalone: true,
+    imports: [NgxChartsModule, CommonModule],
+    templateUrl: './reports.component.html',
+    styleUrl: './reports.component.scss',
+    encapsulation: ViewEncapsulation.None
 })
 export class ReportsComponent implements OnInit {
-  deviceList: Device[] = [];
-  devicesByType: { name: string; value: number }[] = [];
-  devicesByStatus: { name: string; value: number }[] = [];
-  devicesByBrand: { name: string; value: number }[] = [];
+    deviceList: Device[] = [];
+    devicesByType: { name: string; value: number }[] = [];
+    devicesByStatus: { name: string; value: number }[] = [];
+    devicesByBrand: { name: string; value: number }[] = [];
 
-  colorScheme: Color = SCHEMA_CHART_COLORS
+    colorScheme: Color = SCHEMA_CHART_COLORS
 
-  constructor(private deviceListService: DeviceService) {}
+    constructor(private deviceListService: DeviceService) {
+    }
 
-  ngOnInit(): void {
-    this.loadDevices();
-  }
+    ngOnInit(): void {
+        this.loadDevices();
+    }
 
-  private loadDevices(): void {
-    this.deviceListService.findByUserEmail().subscribe({
-      next: (devices) => {
-        this.deviceList = devices;
-        this.generateChartData();
-      },
-    });
-  }
+    private loadDevices(): void {
+        this.deviceListService.findByUserEmail().subscribe({
+            next: (devices) => {
+                this.deviceList = devices;
+                this.generateChartData();
+            },
+        });
+    }
 
-  private generateChartData(): void {
-    this.devicesByType = this.aggregateData(this.deviceList, 'deviceGroup');
-    this.devicesByStatus = this.aggregateData(this.deviceList, 'status');
-    this.devicesByBrand = this.aggregateData(this.deviceList, 'brand');
-  }
+    private generateChartData(): void {
+        this.devicesByType = this.aggregateData(this.deviceList, 'deviceGroup');
+        this.devicesByStatus = this.aggregateData(this.deviceList, 'status');
+        this.devicesByBrand = this.aggregateData(this.deviceList, 'brand');
+    }
 
-  private aggregateData(
-      devices: Device[],
-      field: keyof Device
-  ): { name: string; value: number }[] {
-    const counts: Record<string, number> = {};
-    devices.forEach((device) => {
-      const key = device[field] as string;
-      counts[key] = (counts[key] || 0) + 1;
-    });
+    private aggregateData(
+        devices: Device[],
+        field: keyof Device
+    ): { name: string; value: number }[] {
+        const counts: Record<string, number> = {};
+        devices.forEach((device) => {
+            const key = device[field] as string;
+            counts[key] = (counts[key] || 0) + 1;
+        });
 
-    return Object.entries(counts).map(([key, value]) => ({
-      name: key,
-      value,
-    }));
-  }
+        return Object.entries(counts).map(([key, value]) => ({
+            name: key,
+            value,
+        }));
+    }
 }

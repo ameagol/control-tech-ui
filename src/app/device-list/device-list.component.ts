@@ -22,119 +22,120 @@ import {MatSnackBar, MatSnackBarAction, MatSnackBarActions, MatSnackBarLabel} fr
 import {environment} from "../../environments/environment";
 
 @Component({
-  selector: 'app-device-list',
-  standalone: true,
-  imports: [
-    MatTableModule,
-    MatCardModule,
-    MatIcon,
-    MatPaginatorModule,
-    MatGridListModule,
-    MatDividerModule,
-    MatSortModule,
-    MatLabel,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    FormsModule,
-    MatButtonModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    CommonModule,
-    QrCodeModule,
-    MatSnackBarLabel,
-    MatSnackBarActions,
-    MatSnackBarAction
-  ],
-  templateUrl: './device-list.component.html',
-  styleUrl: './device-list.component.scss'
+    selector: 'app-device-list',
+    standalone: true,
+    imports: [
+        MatTableModule,
+        MatCardModule,
+        MatIcon,
+        MatPaginatorModule,
+        MatGridListModule,
+        MatDividerModule,
+        MatSortModule,
+        MatLabel,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        FormsModule,
+        MatButtonModule,
+        MatSliderModule,
+        MatSlideToggleModule,
+        CommonModule,
+        QrCodeModule,
+        MatSnackBarLabel,
+        MatSnackBarActions,
+        MatSnackBarAction
+    ],
+    templateUrl: './device-list.component.html',
+    styleUrl: './device-list.component.scss'
 })
 export class DeviceListComponent implements OnInit {
-  public devices: Device[] = [];
-  public searchQuery: string = '';
-  public showTable: boolean = false;
-  displayedColumns: string[] = [
-    'patrim',
-    'model',
-    'serial',
-    'type',
-    'status',
-    'brand',
-    'company',
-    'createdAt',
-    'cpuModel',
-    'cpuGeneration',
-    'cpuQuantity',
-    'storage',
-    'memorySize',
-    'memorySlots',
-    'memoryType',
-    'purchaseDate',
-    'purchaseValue',
-    'screenSize',
-    'channels',
-    'technology',
-    'description',
-  ];
+    public devices: Device[] = [];
+    public searchQuery: string = '';
+    public showTable: boolean = false;
+    displayedColumns: string[] = [
+        'patrim',
+        'model',
+        'serial',
+        'type',
+        'status',
+        'brand',
+        'company',
+        'createdAt',
+        'cpuModel',
+        'cpuGeneration',
+        'cpuQuantity',
+        'storage',
+        'memorySize',
+        'memorySlots',
+        'memoryType',
+        'purchaseDate',
+        'purchaseValue',
+        'screenSize',
+        'channels',
+        'technology',
+        'description',
+    ];
 
-  dataSource = new MatTableDataSource<Device>();
-  private _snackBar = inject(MatSnackBar);
-  private uiUrl = environment.UI_HOST;
+    dataSource = new MatTableDataSource<Device>();
+    private _snackBar = inject(MatSnackBar);
+    private uiUrl = environment.UI_HOST;
 
-  constructor(private deviceListService: DeviceService,
-              private router: Router) {}
-
-  ngOnInit() {
-    this.fetchDevices();
-  }
-
-  fetchDevices(): void {
-    this.deviceListService.findByUserEmail().subscribe(data => {
-      if (data) {
-        this.devices = data;
-      }
-    });
-  }
-
-  searchDevices(): void {
-    if (this.searchQuery) {
-      this.deviceListService.searchDevices(this.searchQuery)
-          .subscribe(results => {
-        this.devices = results;
-      });
+    constructor(private deviceListService: DeviceService,
+                private router: Router) {
     }
-  }
 
-  clearSearch(): void {
-    this.searchQuery = '';
-    this.devices = [];
-  }
-
-  onToggleChange(event: MatSlideToggleChange): void {
-    if (event.checked) {
-      this.showTable = true;
-      this.dataSource.data = this.devices;
-    }else {
-      this.showTable = false;
-      this.dataSource.data = [];
+    ngOnInit() {
+        this.fetchDevices();
     }
-  }
 
-  viewDeviceDetails(serial: string) {
-    this.router.navigate([UIRoutes.DEVICE_REGISTER], {
-      queryParams: { serial: serial },
-    });
-  }
+    fetchDevices(): void {
+        this.deviceListService.findByUserEmail().subscribe(data => {
+            if (data) {
+                this.devices = data;
+            }
+        });
+    }
 
-  shareDevice(serial: string) {
-    const deviceUrl = `${this.uiUrl}devices/register?serial=${serial}`;
-    navigator.clipboard.writeText(deviceUrl).then(
-        () => {
-          this._snackBar.open('Link copied to clipboard:', deviceUrl, {
-            duration: 2000
-          });
-        },
-    );
-  }
+    searchDevices(): void {
+        if (this.searchQuery) {
+            this.deviceListService.searchDevices(this.searchQuery)
+                .subscribe(results => {
+                    this.devices = results;
+                });
+        }
+    }
+
+    clearSearch(): void {
+        this.searchQuery = '';
+        this.devices = [];
+    }
+
+    onToggleChange(event: MatSlideToggleChange): void {
+        if (event.checked) {
+            this.showTable = true;
+            this.dataSource.data = this.devices;
+        } else {
+            this.showTable = false;
+            this.dataSource.data = [];
+        }
+    }
+
+    viewDeviceDetails(serial: string) {
+        this.router.navigate([UIRoutes.DEVICE_REGISTER], {
+            queryParams: {serial: serial},
+        });
+    }
+
+    shareDevice(serial: string) {
+        const deviceUrl = `${this.uiUrl}devices/register?serial=${serial}`;
+        navigator.clipboard.writeText(deviceUrl).then(
+            () => {
+                this._snackBar.open('Link copied to clipboard:', deviceUrl, {
+                    duration: 2000
+                });
+            },
+        );
+    }
 }
 

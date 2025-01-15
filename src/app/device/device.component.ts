@@ -133,7 +133,7 @@ export class DeviceComponent implements OnInit {
                 const interval = setInterval(() => {
                     if (this.companies.length > 0) {
                         clearInterval(interval);
-                        const company = this.companies.find(c => c.name === device.companyName) || null;
+                        const company = this.companies.find(c => c.name.toUpperCase() === device.companyName.toUpperCase()) || null;
                         this.deviceForm.patchValue({
                             ...device,
                             company: company
@@ -150,7 +150,7 @@ export class DeviceComponent implements OnInit {
             this.deviceService.registerDevice(this.deviceForm.value).subscribe({
                 next: (response) => {
                     this.openDialog('Success', NEW_DEVICE_SUCCESS);
-                    this.qrCodeValue =  `${this.uiUrl}/devices/register?serial=${response.serial}`;
+                    this.qrCodeValue = `${this.uiUrl}/devices/register?serial=${response.serial}`;
                 },
             });
         }
@@ -158,7 +158,7 @@ export class DeviceComponent implements OnInit {
 
     openDialog(title: string, message: string): void {
         this.dialog.open(GlobalDialogComponent, {
-            data: { title, message }
+            data: {title, message}
         });
     }
 }
