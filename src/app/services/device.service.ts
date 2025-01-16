@@ -12,12 +12,10 @@ import {AuthService} from "./auth.service";
 export class DeviceService {
     private apiUrl = environment.API_HOST + API.DEVICES;
 
-    constructor(private http: HttpClient, private authService: AuthService) {}
+    constructor(private http: HttpClient) {}
 
     public findByUserEmail(): Observable<Device[]> {
-    const email = this.authService.getUserEmail();
-    const params = new HttpParams().set('email', email);
-    return this.http.get<Device[]>(`${this.apiUrl}/by-user-email`, { params });
+    return this.http.get<Device[]>(`${this.apiUrl}`);
 }
 
     public getDeviceBySerial(serial: string): Observable<Device> {

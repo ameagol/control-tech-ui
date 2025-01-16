@@ -38,7 +38,6 @@ import {StatusService} from "../services/status.service";
 })
 export class StatusComponent implements OnInit {
     registerForm: FormGroup;
-    email: string = '';
     allStatus: Status[] = [];
     selectedStatusId: number | undefined;
 
@@ -54,12 +53,11 @@ export class StatusComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.email = this.authService.getUserEmail();
         this.loadStatus();
     }
 
     loadStatus(): void {
-        this.statusService.getStatus(this.email).subscribe((status) => {
+        this.statusService.getStatus().subscribe((status) => {
             this.allStatus = status;
         });
     }
@@ -78,7 +76,7 @@ export class StatusComponent implements OnInit {
 
         const statusData = <Status>{
             id: this.selectedStatusId,
-            user: {email: this.email},
+            user: { email: this.authService.getUserEmail() },
             name: this.registerForm.get('name')?.value,
         };
 

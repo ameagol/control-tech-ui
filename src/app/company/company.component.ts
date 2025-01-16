@@ -38,7 +38,6 @@ import {MatTableModule} from "@angular/material/table";
 })
 export class CompanyComponent implements OnInit {
     registerForm: FormGroup;
-    email: string = '';
     myCompanies: CompanyModel[] = [];
     selectedCompanyId: number | undefined;
 
@@ -54,12 +53,11 @@ export class CompanyComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.email = this.authService.getUserEmail();
         this.loadCompanies();
     }
 
     loadCompanies(): void {
-        this.companyService.getCompaniesByUserId(this.email).subscribe((companies) => {
+        this.companyService.getCompaniesByUserId().subscribe((companies) => {
             this.myCompanies = companies;
         });
     }
@@ -78,7 +76,7 @@ export class CompanyComponent implements OnInit {
 
         const companyData = <CompanyModel>{
             id: this.selectedCompanyId,
-            user: {email: this.email},
+            user: {email: this.authService.getUserEmail() },
             name: this.registerForm.get('name')?.value,
         };
 

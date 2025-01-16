@@ -114,13 +114,13 @@ export class DeviceComponent implements OnInit {
     }
 
     private loadUserData(email: string): void {
-        this.companyService.getCompaniesByUserId(email).subscribe({
+        this.companyService.getCompaniesByUserId().subscribe({
             next: (companies: CompanyModel[]) => {
                 this.companies = companies;
             },
         });
 
-        this.statusService.getStatus(email).subscribe({
+        this.statusService.getStatus().subscribe({
             next: (status: Status[]) => {
                 this.statusOptions = status;
             },

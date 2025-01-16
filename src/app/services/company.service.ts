@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {CompanyModel} from "../model/company.model";
 import {API} from "../constants/device-options.constants";
 import {environment} from "../../environments/environment";
+import {AuthService} from "./auth.service";
 
 @Injectable({
     providedIn: 'root'
@@ -11,10 +12,10 @@ import {environment} from "../../environments/environment";
 export class CompanyService {
     private apiUrl = environment.API_HOST + API.COMPANIES;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private authService: AuthService) {}
 
-    getCompaniesByUserId(user_id: string): Observable<CompanyModel[]> {
-        return this.http.get<CompanyModel[]>(`${this.apiUrl}/user/${user_id}`);
+    getCompaniesByUserId(): Observable<CompanyModel[]> {
+        return this.http.get<CompanyModel[]>(`${this.apiUrl}`,);
     }
 
     createCompany(company: CompanyModel): Observable<CompanyModel> {

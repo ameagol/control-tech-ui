@@ -13,8 +13,8 @@ export class StatusService {
 
     constructor(private http: HttpClient) {}
 
-    getStatus(email: String): Observable<Status[]> {
-        return this.http.get<Status[]>(`${this.apiUrl}/user/${email}`);
+    getStatus(): Observable<Status[]> {
+        return this.http.get<Status[]>(this.apiUrl);
     }
 
     createStatus(status: Status): Observable<Status> {

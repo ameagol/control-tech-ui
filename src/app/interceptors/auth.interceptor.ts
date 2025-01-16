@@ -35,22 +35,22 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             let message;
 
             switch (error.status) {
-                case 0:
+                case 0: // Unknown (Cors|Backend)
                     authService.logout();
                     title = 'Network Error';
-                    message = 'Unable to connect to the server. Please check your internet connection.';
+                    message = 'Unable to connect to the server. Please check host communication.';
                     router.navigate([UIRoutes.LOGIN]);
                     break;
 
                 case 400: // Bad Request
                     title = 'Bad Request';
-                    message = error.error?.message || 'There was an issue with your request. Please check the data and try again.';
+                    message = error.error?.message || 'There was an issue with your request. Try again later.';
                     break;
 
                 case 401: // Unauthorized
                     authService.logout();
                     title = 'Not Authorized';
-                    message = error.error?.message || 'Invalid Credentials Provided, Verify User and Password';
+                    message = error.error?.message || 'Invalid Credentials Provided, verify User and Password';
                     router.navigate([UIRoutes.LOGIN]);
                     break;
 
