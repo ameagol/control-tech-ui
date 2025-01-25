@@ -54,6 +54,7 @@ export class DeviceListComponent implements OnInit {
     public searchQuery: string = '';
     public showTable: boolean = false;
     displayedColumns: string[] = [
+        'edit',
         'patrim',
         'model',
         'serial',

@@ -1,14 +1,22 @@
 $dark: #3f4042;
 $light: #a0a0a8;
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
 
 .search-bar {
-  margin-left: 40%;
-  width: 600px;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adds spacing between elements */
+  width: auto;
+}
 
-  button {
-    margin-left: 10px;
-    border-radius: 0;
-  }
+.switch-view {
+  display: flex;
+  align-items: center;
 }
 
 .table-view-label {

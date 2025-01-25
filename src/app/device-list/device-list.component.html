@@ -1,17 +1,22 @@
+<div class="toolbar">
+    <div class="search-bar">
+        <mat-form-field appearance="outline">
+            <mat-label>Search Devices</mat-label>
+            <input matInput [(ngModel)]="searchQuery" placeholder="Enter serial, name, or type" />
+        </mat-form-field>
+        <button mat-button color="primary" (click)="searchDevices()">Search</button>
+        <button mat-button (click)="fetchDevices()">Clear</button>
+    </div>
+    <div class="switch-view">
+        <mat-slide-toggle (change)="onToggleChange($event)">
+        </mat-slide-toggle>
 
-<div class="search-bar">
-    <mat-form-field appearance="outline">
-        <mat-label>Search Devices</mat-label>
-        <input matInput [(ngModel)]="searchQuery" placeholder="Enter serial, name, or type" />
-    </mat-form-field>
-    <button mat-button color="primary" (click)="searchDevices()">Search</button>
-    <button mat-button style="position: relative; margin-left: 0; " (click)="fetchDevices()">Clear</button>
-    <mat-slide-toggle (change)="onToggleChange($event)">
-        <span class="table-view-label">table view</span>
-    </mat-slide-toggle>
+        <span class="table-view-label">Cards view</span>
+        <mat-icon class="user-icon">dashboard</mat-icon>
+    </div>
 </div>
 <div *ngIf="devices.length > 0" class="device-container">
-    <div *ngIf="!showTable" class="card-container" appearance="outlined">
+    <div *ngIf="showTable" class="card-container" appearance="outlined">
         <mat-card *ngFor="let device of devices" class="event-card" >
             <!-- Image Section -->
             <mat-card-header>
@@ -46,8 +51,23 @@
             </mat-card-actions>
         </mat-card>
     </div>
-    <div class="table-container" *ngIf="showTable">
+    <div class="table-container" *ngIf="!showTable">
         <mat-table matSort [dataSource]="devices" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef>Ação</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-button (click)="viewDeviceDetails(element.serial)">
+                        <span class="user-name">Editar</span>
+                        <mat-icon class="user-icon">edit_note</mat-icon>
+                    </button>
+                    <button mat-button (click)="shareDevice(element.serial)">
+                        <span class="user-name">Enviar</span>
+                        <mat-icon class="user-icon">ios_share</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
             <ng-container matColumnDef="deviceGroup">
                 <th mat-header-cell *matHeaderCellDef>Grupo</th>
                 <td mat-cell *matCellDef="let element">{{ element.deviceGroup }}</td>
